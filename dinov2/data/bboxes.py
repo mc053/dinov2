@@ -35,8 +35,8 @@ class CelebABBoxDetectorMTCNN(CelebABBoxDetector):
 
         return x_1, y_1, width, height
 
-def save_bboxes_to_csv(detector: CelebABBoxDetectorMTCNN, image_dir: str, output_csv: str, max_images: int = 100):
-    images = sorted(os.listdir(image_dir))[:max_images]
+def save_bboxes_to_csv(detector: CelebABBoxDetectorMTCNN, image_dir: str, output_csv: str):
+    images = sorted(os.listdir(image_dir))
     output_path = os.path.abspath(output_csv)
 
     with open(output_path, "w", newline="") as csvfile:
@@ -55,6 +55,6 @@ if __name__ == "__main__":
     output_csv_path = "/home/stud/m/mc085/mounted_home/dinov2/dinov2/data/datasets/CelebA/list_bbox_celeba_mtcnn.csv"
     
     detector = CelebABBoxDetectorMTCNN()
-    save_bboxes_to_csv(detector, image_directory, output_csv_path, max_images=100)
+    save_bboxes_to_csv(detector, image_directory, output_csv_path)
 
     print(f"BBoxes saved to {output_csv_path}")
