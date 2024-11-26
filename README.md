@@ -1,4 +1,8 @@
-Test
+# For Training on https://deeplearn.mi.hdm-stuttgart.de/
+
+`PYTHONPATH=. python dinov2/run/train/train.py  --nodes 1  --gpus 1   --config-file dinov2/configs/train/vitl16_short.yaml --output-dir output`
+
+# Original README
 
 :new: [2023-10-26] *Added DINOv2 backbones with registers, following [Vision Transformers Need Registers](https://arxiv.org/abs/2309.16588).*
 
