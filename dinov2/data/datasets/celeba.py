@@ -32,7 +32,7 @@ class CelebAOriginal(ExtendedVisionDataset):
         return image
 
     def get_target(self, index: int) -> Any:
-        return 0  # TODO: Maybe return identity of person (?)
+        return 0  # TODO: Return identity of person (?)
 
     def __getitem__(self, index):
         try:

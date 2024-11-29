@@ -82,10 +82,10 @@ class CelebAAnonymizerPixelation(CelebAAnonymizer):
 
 if __name__ == "__main__":
     input_path = "/home/stud/m/mc085/mounted_home/dinov2/dinov2/data/datasets/CelebA/CelebA_original"
-    output_path = "/home/stud/m/mc085/mounted_home/dinov2/dinov2/data/datasets/CelebA/CelebA_masked"
+    output_path = "/home/stud/m/mc085/mounted_home/dinov2/dinov2/data/datasets/CelebA/CelebA_pixelated"
     bbox_csv_path = "/home/stud/m/mc085/mounted_home/dinov2/dinov2/data/datasets/CelebA/list_bbox_celeba_mtcnn.csv"
 
-    anonymizer = CelebAAnonymizerMaskOut()
+    anonymizer = CelebAAnonymizerPixelation()
 
     print("Starting anonymization...")
     anonymizer.anonymize_celeba_imgs(input_path, output_path, bbox_csv_path)
