@@ -1,18 +1,22 @@
 import os
 import pickle
+import pandas as pd
 from .extended import ExtendedVisionDataset
 from typing import Any, Callable, Optional, Tuple
 from PIL import Image
 from pathlib import Path
 
 class CelebAOriginal(ExtendedVisionDataset):
-    def __init__(self, root: str = os.path.dirname(os.path.abspath(__file__)), transforms=None, transform=None, target_transform=None, image_dir_name="CelebA_original"):
+    def __init__(self, root: str = os.path.dirname(os.path.abspath(__file__)), transforms=None,
+    transform=None, target_transform=None, image_dir_name="CelebA_original/train"):
         super().__init__(root=root, transforms=transforms, transform=transform, target_transform=target_transform)
         self.root = Path(root).resolve()
         self.image_dir = self.root / "CelebA" / image_dir_name
         self.photo_files_path = self.image_dir / "image_list.pickle"
         self.paths = []
         self._load_image_paths()
+        identity_file_path = self.root / "CelebA" / "identity_CelebA.txt"
+        self.identity_map = pd.read_csv(identity_file_path, sep=" ", header=None, names=["image_id", "identity"], index_col="image_id").to_dict()["identity"]
 
     def _load_image_paths(self):
         if self.photo_files_path.exists():
@@ -32,7 +36,11 @@ class CelebAOriginal(ExtendedVisionDataset):
         return image
 
     def get_target(self, index: int) -> Any:
-        return 0  # TODO: Return identity of person (?)
+        try:
+            image_name = os.path.basename(self.paths[index])
+            return self.identity_map[image_name]
+        except KeyError:
+            raise RuntimeError(f"Identity for image {image_name} not found")
 
     def __getitem__(self, index):
         try:
@@ -49,7 +57,28 @@ class CelebAOriginal(ExtendedVisionDataset):
     def __len__(self):
         return len(self.paths)
 
-## class CelebAPixelated(CelebAOriginal) -> simply call super constructor with image_dir_name="CelebA_pixelated"
+# def test():
+#     dataset_path = "/home/stud/m/mc085/mounted_home/dinov2/dinov2/data/datasets/CelebA/CelebA_original/train/"
+#     dataset = CelebAOriginal()
+#     print(f"No. of pictures in dataset: {len(dataset)}")
+#     
+#     dataset_file_names = [os.path.basename(path) for path in dataset.paths]
+#     
+#     test_cases = ['000103.jpg', '002822.jpg']
+#     for img_name in test_cases:
+#         try:
+#             index = dataset_file_names.index(img_name)
+#             identity = dataset.get_target(index)
+#             print(f"Index: {index}, Image: {img_name}, Identity: {identity}")
+#         except ValueError:
+#             print(f"Image: {img_name}, Error: '{img_name}' is not in dataset")
+#         except Exception as e:
+#             print(f"Image: {img_name}, Error: {e}")
+# 
+# if __name__ == "__main__":
+#     test()
+
+## class CelebAPixelated(CelebAOriginal) -> simply call super constructor with image_dir_name="CelebA_pixelated/train"
 ## class CelebAMasked(CelebAOriginal) ...
 ## class CelebABlurred(CelebAOriginal) ...
 ## class CelebADistorted(CelebAOriginal) ...

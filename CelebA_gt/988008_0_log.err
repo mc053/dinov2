@@ -1,0 +1,47 @@
+/home/stud/m/mc085/mounted_home/dinov2/dinov2/layers/swiglu_ffn.py:43: UserWarning: xFormers is available (SwiGLU)
+  warnings.warn("xFormers is available (SwiGLU)")
+/home/stud/m/mc085/mounted_home/dinov2/dinov2/layers/attention.py:27: UserWarning: xFormers is available (Attention)
+  warnings.warn("xFormers is available (Attention)")
+/home/stud/m/mc085/mounted_home/dinov2/dinov2/layers/block.py:33: UserWarning: xFormers is available (Block)
+  warnings.warn("xFormers is available (Block)")
+submitit ERROR (2024-11-30 10:59:18,715) - Submitted job triggered an exception
+Traceback (most recent call last):
+  File "/opt/miniconda3/envs/dinov2_env/lib/python3.9/runpy.py", line 197, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/opt/miniconda3/envs/dinov2_env/lib/python3.9/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/opt/miniconda3/envs/dinov2_env/lib/python3.9/site-packages/submitit/core/_submit.py", line 11, in <module>
+    submitit_main()
+  File "/opt/miniconda3/envs/dinov2_env/lib/python3.9/site-packages/submitit/core/submission.py", line 76, in submitit_main
+    process_job(args.folder)
+  File "/opt/miniconda3/envs/dinov2_env/lib/python3.9/site-packages/submitit/core/submission.py", line 69, in process_job
+    raise error
+  File "/opt/miniconda3/envs/dinov2_env/lib/python3.9/site-packages/submitit/core/submission.py", line 55, in process_job
+    result = delayed.result()
+  File "/opt/miniconda3/envs/dinov2_env/lib/python3.9/site-packages/submitit/core/utils.py", line 137, in result
+    self._result = self.function(*self.args, **self.kwargs)
+  File "/home/stud/m/mc085/mounted_home/dinov2/dinov2/run/train/train.py", line 26, in __call__
+    train_main(self.args)
+  File "/home/stud/m/mc085/mounted_home/dinov2/dinov2/train/train.py", line 313, in main
+    do_train(cfg, model, resume=not args.no_resume)
+  File "/home/stud/m/mc085/mounted_home/dinov2/dinov2/train/train.py", line 290, in do_train
+    periodic_checkpointer.step(iteration)
+  File "/opt/miniconda3/envs/dinov2_env/lib/python3.9/site-packages/fvcore/common/checkpoint.py", line 428, in step
+    self.checkpointer.save(
+  File "/home/stud/m/mc085/mounted_home/dinov2/dinov2/fsdp/__init__.py", line 99, in save
+    data["model"] = self.model.state_dict()
+  File "/opt/miniconda3/envs/dinov2_env/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1818, in state_dict
+    module.state_dict(destination=destination, prefix=prefix + name + '.', keep_vars=keep_vars)
+  File "/opt/miniconda3/envs/dinov2_env/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1818, in state_dict
+    module.state_dict(destination=destination, prefix=prefix + name + '.', keep_vars=keep_vars)
+  File "/opt/miniconda3/envs/dinov2_env/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1815, in state_dict
+    self._save_to_state_dict(destination, prefix, keep_vars)
+  File "/opt/miniconda3/envs/dinov2_env/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1722, in _save_to_state_dict
+    hook(self, prefix, keep_vars)
+  File "/opt/miniconda3/envs/dinov2_env/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/opt/miniconda3/envs/dinov2_env/lib/python3.9/site-packages/torch/distributed/fsdp/_state_dict_utils.py", line 669, in _pre_state_dict_hook
+    _pre_state_dict_hook_fn[fsdp_state._state_dict_type](
+  File "/opt/miniconda3/envs/dinov2_env/lib/python3.9/site-packages/torch/distributed/fsdp/_state_dict_utils.py", line 359, in _local_pre_state_dict_hook
+    raise RuntimeError(
+RuntimeError: ``local_state_dict`` can only be used when parameters are flatten and sharded.
