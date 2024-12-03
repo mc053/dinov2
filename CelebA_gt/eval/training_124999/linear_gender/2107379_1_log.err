@@ -1,0 +1,29 @@
+/home/stud/m/mc085/mounted_home/dinov2/dinov2/layers/swiglu_ffn.py:43: UserWarning: xFormers is available (SwiGLU)
+  warnings.warn("xFormers is available (SwiGLU)")
+/home/stud/m/mc085/mounted_home/dinov2/dinov2/layers/attention.py:27: UserWarning: xFormers is available (Attention)
+  warnings.warn("xFormers is available (Attention)")
+/home/stud/m/mc085/mounted_home/dinov2/dinov2/layers/block.py:33: UserWarning: xFormers is available (Block)
+  warnings.warn("xFormers is available (Block)")
+submitit ERROR (2024-12-03 14:10:13,784) - Submitted job triggered an exception
+Traceback (most recent call last):
+  File "/opt/miniconda3/envs/dinov2_env/lib/python3.9/runpy.py", line 197, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/opt/miniconda3/envs/dinov2_env/lib/python3.9/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/opt/miniconda3/envs/dinov2_env/lib/python3.9/site-packages/submitit/core/_submit.py", line 11, in <module>
+    submitit_main()
+  File "/opt/miniconda3/envs/dinov2_env/lib/python3.9/site-packages/submitit/core/submission.py", line 76, in submitit_main
+    process_job(args.folder)
+  File "/opt/miniconda3/envs/dinov2_env/lib/python3.9/site-packages/submitit/core/submission.py", line 69, in process_job
+    raise error
+  File "/opt/miniconda3/envs/dinov2_env/lib/python3.9/site-packages/submitit/core/submission.py", line 55, in process_job
+    result = delayed.result()
+  File "/opt/miniconda3/envs/dinov2_env/lib/python3.9/site-packages/submitit/core/utils.py", line 137, in result
+    self._result = self.function(*self.args, **self.kwargs)
+  File "/home/stud/m/mc085/mounted_home/dinov2/dinov2/run/eval/linear.py", line 26, in __call__
+    linear_main(self.args)
+  File "/home/stud/m/mc085/mounted_home/dinov2/dinov2/eval/linear.py", line 597, in main
+    run_eval_linear(
+  File "/home/stud/m/mc085/mounted_home/dinov2/dinov2/eval/linear.py", line 499, in run_eval_linear
+    training_num_classes = len(torch.unique(torch.Tensor(train_dataset.get_targets().astype(int))))
+AttributeError: 'CelebAOriginalTrain' object has no attribute 'get_targets'

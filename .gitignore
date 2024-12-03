@@ -10,3 +10,4 @@ dist/
 *.jpg
 *.png
 .vscode/
+*.pth

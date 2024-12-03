@@ -5,4 +5,4 @@
 
 from .image_net import ImageNet
 from .image_net_22k import ImageNet22k
-from .celeba import CelebAOriginal
+from .celeba import CelebAOriginalTrain, CelebAOriginalVal
