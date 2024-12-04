@@ -1,0 +1,45 @@
+/home/stud/m/mc085/mounted_home/dinov2/dinov2/layers/swiglu_ffn.py:43: UserWarning: xFormers is available (SwiGLU)
+  warnings.warn("xFormers is available (SwiGLU)")
+/home/stud/m/mc085/mounted_home/dinov2/dinov2/layers/attention.py:27: UserWarning: xFormers is available (Attention)
+  warnings.warn("xFormers is available (Attention)")
+/home/stud/m/mc085/mounted_home/dinov2/dinov2/layers/block.py:33: UserWarning: xFormers is available (Block)
+  warnings.warn("xFormers is available (Block)")
+submitit ERROR (2024-12-04 08:12:49,569) - Submitted job triggered an exception
+Traceback (most recent call last):
+  File "/opt/miniconda3/lib/python3.9/runpy.py", line 197, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/opt/miniconda3/lib/python3.9/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/stud/m/mc085/mounted_home/lib/python3.9/site-packages/submitit/core/_submit.py", line 11, in <module>
+    submitit_main()
+  File "/home/stud/m/mc085/mounted_home/lib/python3.9/site-packages/submitit/core/submission.py", line 76, in submitit_main
+    process_job(args.folder)
+  File "/home/stud/m/mc085/mounted_home/lib/python3.9/site-packages/submitit/core/submission.py", line 69, in process_job
+    raise error
+  File "/home/stud/m/mc085/mounted_home/lib/python3.9/site-packages/submitit/core/submission.py", line 55, in process_job
+    result = delayed.result()
+  File "/home/stud/m/mc085/mounted_home/lib/python3.9/site-packages/submitit/core/utils.py", line 137, in result
+    self._result = self.function(*self.args, **self.kwargs)
+  File "/home/stud/m/mc085/mounted_home/dinov2/dinov2/run/eval/linear.py", line 26, in __call__
+    linear_main(self.args)
+  File "/home/stud/m/mc085/mounted_home/dinov2/dinov2/eval/linear.py", line 597, in main
+    run_eval_linear(
+  File "/home/stud/m/mc085/mounted_home/dinov2/dinov2/eval/linear.py", line 553, in run_eval_linear
+    val_results_dict, feature_model, linear_classifiers, iteration = eval_linear(
+  File "/home/stud/m/mc085/mounted_home/dinov2/dinov2/eval/linear.py", line 383, in eval_linear
+    _ = evaluate_linear_classifiers(
+  File "/home/stud/m/mc085/mounted_home/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/stud/m/mc085/mounted_home/dinov2/dinov2/eval/linear.py", line 275, in evaluate_linear_classifiers
+    metric = build_metric(metric_type, num_classes=num_classes)
+  File "/home/stud/m/mc085/mounted_home/dinov2/dinov2/eval/metrics.py", line 45, in build_metric
+    return build_topk_accuracy_metric(
+  File "/home/stud/m/mc085/mounted_home/dinov2/dinov2/eval/metrics.py", line 60, in build_topk_accuracy_metric
+    metrics: Dict[str, Metric] = {
+  File "/home/stud/m/mc085/mounted_home/dinov2/dinov2/eval/metrics.py", line 61, in <dictcomp>
+    f"top-{k}": MulticlassAccuracy(top_k=k, num_classes=int(num_classes), average=average_type.value) for k in ks
+  File "/home/stud/m/mc085/mounted_home/lib/python3.9/site-packages/torchmetrics/classification/stat_scores.py", line 300, in __init__
+    _multiclass_stat_scores_arg_validation(num_classes, top_k, average, multidim_average, ignore_index)
+  File "/home/stud/m/mc085/mounted_home/lib/python3.9/site-packages/torchmetrics/functional/classification/stat_scores.py", line 239, in _multiclass_stat_scores_arg_validation
+    raise ValueError(
+ValueError: Expected argument `top_k` to be smaller or equal to `num_classes` but got 5 and 2

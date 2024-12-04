@@ -56,7 +56,8 @@ def build_metric(metric_type: MetricType, *, num_classes: int, ks: Optional[tupl
     raise ValueError(f"Unknown metric type {metric_type}")
 
 
-def build_topk_accuracy_metric(average_type: AccuracyAveraging, num_classes: int, ks: tuple = (1, 5)):
+# Set ks to 1 here. Otherwise the evaluation throws an exception whenever num_classes < ks.
+def build_topk_accuracy_metric(average_type: AccuracyAveraging, num_classes: int, ks: tuple = (1,)):
     metrics: Dict[str, Metric] = {
         f"top-{k}": MulticlassAccuracy(top_k=k, num_classes=int(num_classes), average=average_type.value) for k in ks
     }

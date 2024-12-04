@@ -1,7 +1,0 @@
-# this corresponds to the default config
-train:
-  dataset_path: CelebAOriginal
-  batch_size_per_gpu: 12
-student:
-  block_chunks: 4
-  in_chans: 3

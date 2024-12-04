@@ -1,6 +1,7 @@
 import os
 import pickle
 import pandas as pd
+import numpy as np
 from .extended import ExtendedVisionDataset
 from typing import Any, Callable, Optional, Tuple
 from PIL import Image
@@ -12,7 +13,7 @@ class Target(Enum):
     GENDER = 2
 
 # Set this value before performing evaluation.
-TARGET = Target.GENDER
+TARGET = Target.IDENTITY
 
 class CelebAOriginalTrain(ExtendedVisionDataset):
     def __init__(self, root: str = os.path.dirname(os.path.abspath(__file__)), transforms=None,
@@ -58,6 +59,14 @@ class CelebAOriginalTrain(ExtendedVisionDataset):
         except KeyError as e:
             raise RuntimeError(f"Target for image {os.path.basename(self.paths[index])} not found") from e
 
+    def get_targets(self) -> Optional[np.ndarray]:
+        if TARGET == Target.IDENTITY:
+            return np.array([self.identity_map[os.path.basename(path)] for path in self.paths])
+        elif TARGET == Target.GENDER:
+            return np.array([0 if self.gender_map[os.path.basename(path)] == -1 else self.gender_map[os.path.basename(path)] for path in self.paths])
+        else:
+            raise ValueError(f"Unsupported target type: {TARGET}")
+
     def __getitem__(self, index):
         try:
             image = self.get_image_data(index)
@@ -79,28 +88,39 @@ class CelebAOriginalVal(CelebAOriginalTrain):
         super().__init__(root=root, transforms=transforms, transform=transform,
         target_transform=target_transform, image_dir_name=image_dir_name)
 
+class CelebAPixelatedTrain(CelebAOriginalTrain):
+    def __init__(self, root: str = os.path.dirname(os.path.abspath(__file__)), transforms=None,
+    transform=None, target_transform=None, image_dir_name="CelebA_pixelated/train"):
+        super().__init__(root=root, transforms=transforms, transform=transform,
+        target_transform=target_transform, image_dir_name=image_dir_name)
+
+class CelebAMaskedTrain(CelebAOriginalTrain):
+    def __init__(self, root: str = os.path.dirname(os.path.abspath(__file__)), transforms=None,
+    transform=None, target_transform=None, image_dir_name="CelebA_masked/train"):
+        super().__init__(root=root, transforms=transforms, transform=transform,
+        target_transform=target_transform, image_dir_name=image_dir_name)
+
 # def test():
-#     dataset_path = "/home/stud/m/mc085/mounted_home/dinov2/dinov2/data/datasets/CelebA/CelebA_original/train/"
-#     dataset = CelebAOriginalTrain()
+#     # dataset_path = "/home/stud/m/mc085/mounted_home/dinov2/dinov2/data/datasets/CelebA/CelebA_original/train/"
+#     dataset = CelebAOriginalVal()
 #     print(f"No. of pictures in dataset: {len(dataset)}")
+#     print(f"Targets in dataset: {dataset.get_targets()}")
 #     
-#     dataset_file_names = [os.path.basename(path) for path in dataset.paths]
-#     
-#     test_cases = ['000103.jpg', '002822.jpg', '005864.jpg', '013191.jpg', '015069.jpg', '024891.jpg', '030232.jpg', '040038.jpg', '040972.jpg', '041216.jpg', '045871.jpg', '051897.jpg', '070373.jpg', '086045.jpg', '086926.jpg', '090258.jpg', '091632.jpg', '094740.jpg', '106949.jpg', '112659.jpg', '113173.jpg', '125945.jpg', '128046.jpg', '133552.jpg', '137651.jpg', '138272.jpg', '138569.jpg', '144857.jpg', '152937.jpg', '158023.jpg']
-#     for img_name in test_cases:
-#         try:
-#             index = dataset_file_names.index(img_name)
-#             target = dataset.get_target(index)
-#             print(f"Index: {index}, Image: {img_name}, Target: {target}")
-#         except ValueError:
-#             print(f"Image: {img_name}, Error: '{img_name}' is not in dataset")
-#         except Exception as e:
-#             print(f"Image: {img_name}, Error: {e}")
+#     # dataset_file_names = [os.path.basename(path) for path in dataset.paths]
+#     # 
+#     # test_cases = ['000103.jpg', '002822.jpg', '005864.jpg', '013191.jpg', '015069.jpg', '024891.jpg', '030232.jpg', '040038.jpg', '040972.jpg', '041216.jpg', '045871.jpg', '051897.jpg', '070373.jpg', '086045.jpg', '086926.jpg', '090258.jpg', '091632.jpg', '094740.jpg', '106949.jpg', '112659.jpg', '113173.jpg', '125945.jpg', '128046.jpg', '133552.jpg', '137651.jpg', '138272.jpg', '138569.jpg', '144857.jpg', '152937.jpg', '158023.jpg']
+#     # for img_name in test_cases:
+#     #     try:
+#     #         index = dataset_file_names.index(img_name)
+#     #         target = dataset.get_target(index)
+#     #         print(f"Index: {index}, Image: {img_name}, Target: {target}")
+#     #     except ValueError:
+#     #         print(f"Image: {img_name}, Error: '{img_name}' is not in dataset")
+#     #     except Exception as e:
+#     #         print(f"Image: {img_name}, Error: {e}")
 # 
 # if __name__ == "__main__":
 #     test()
 
-## class CelebAPixelatedTrain(CelebAOriginalTrain) ...
-## class CelebAMaskedTrain(CelebAOriginalTrain) ...
 ## class CelebABlurred(CelebAOriginal) ...
 ## class CelebADistorted(CelebAOriginal) ...
