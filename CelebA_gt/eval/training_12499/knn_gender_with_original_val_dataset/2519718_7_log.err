@@ -1,0 +1,33 @@
+/home/stud/m/mc085/mounted_home/dinov2/dinov2/layers/swiglu_ffn.py:43: UserWarning: xFormers is available (SwiGLU)
+  warnings.warn("xFormers is available (SwiGLU)")
+/home/stud/m/mc085/mounted_home/dinov2/dinov2/layers/attention.py:27: UserWarning: xFormers is available (Attention)
+  warnings.warn("xFormers is available (Attention)")
+/home/stud/m/mc085/mounted_home/dinov2/dinov2/layers/block.py:33: UserWarning: xFormers is available (Block)
+  warnings.warn("xFormers is available (Block)")
+submitit ERROR (2024-12-04 09:19:20,514) - Submitted job triggered an exception
+Traceback (most recent call last):
+  File "/opt/miniconda3/lib/python3.9/runpy.py", line 197, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/opt/miniconda3/lib/python3.9/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/stud/m/mc085/mounted_home/lib/python3.9/site-packages/submitit/core/_submit.py", line 11, in <module>
+    submitit_main()
+  File "/home/stud/m/mc085/mounted_home/lib/python3.9/site-packages/submitit/core/submission.py", line 76, in submitit_main
+    process_job(args.folder)
+  File "/home/stud/m/mc085/mounted_home/lib/python3.9/site-packages/submitit/core/submission.py", line 69, in process_job
+    raise error
+  File "/home/stud/m/mc085/mounted_home/lib/python3.9/site-packages/submitit/core/submission.py", line 55, in process_job
+    result = delayed.result()
+  File "/home/stud/m/mc085/mounted_home/lib/python3.9/site-packages/submitit/core/utils.py", line 137, in result
+    self._result = self.function(*self.args, **self.kwargs)
+  File "/home/stud/m/mc085/mounted_home/dinov2/dinov2/run/eval/knn.py", line 26, in __call__
+    knn_main(self.args)
+  File "/home/stud/m/mc085/mounted_home/dinov2/dinov2/eval/knn.py", line 381, in main
+    eval_knn_with_model(
+  File "/home/stud/m/mc085/mounted_home/dinov2/dinov2/eval/knn.py", line 346, in eval_knn_with_model
+    results_dict_knn = eval_knn(
+  File "/home/stud/m/mc085/mounted_home/dinov2/dinov2/eval/knn.py", line 276, in eval_knn
+    metric_collection = build_topk_accuracy_metric(accuracy_averaging, num_classes=num_classes)
+  File "/home/stud/m/mc085/mounted_home/dinov2/dinov2/eval/metrics.py", line 61, in build_topk_accuracy_metric
+    metrics: Dict[str, Metric] = {
+TypeError: 'int' object is not iterable
