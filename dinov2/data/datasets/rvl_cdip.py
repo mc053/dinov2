@@ -30,7 +30,7 @@ class RvlCdipOriginalTrain(ExtendedVisionDataset):
 
     def get_image_data(self, index: int) -> bytes:
         image_path = self.paths[index]
-        image = Image.open(image_path).convert(mode="RGB") # should already be RGB.
+        image = Image.open(image_path).convert(mode="RGB")
         return image
 
     def get_target(self, index: int) -> Any:
@@ -48,7 +48,7 @@ class RvlCdipOriginalTrain(ExtendedVisionDataset):
         try:
             image = self.get_image_data(index)
         except Exception as e:
-            raise RuntimeError(f"Konnte Bild für Sample {index} nicht lesen") from e
+            raise RuntimeError(f"can not read image for sample {index}") from e
         target = self.get_target(index)
 
         if self.transforms is not None:
@@ -58,3 +58,9 @@ class RvlCdipOriginalTrain(ExtendedVisionDataset):
 
     def __len__(self) -> int:
         return len(self.paths)
+
+class RvlCdipOriginalVal(RvlCdipOriginalTrain):
+    def __init__(self, root: str = os.path.dirname(os.path.abspath(__file__)), transforms=None,
+    transform=None, target_transform=None, image_dir_name="RVL-CDIP_original/val"):
+        super().__init__(root=root, transforms=transforms, transform=transform,
+        target_transform=target_transform, image_dir_name=image_dir_name)

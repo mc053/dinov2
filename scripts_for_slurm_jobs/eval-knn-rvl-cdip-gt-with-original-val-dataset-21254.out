@@ -1,0 +1,32 @@
+Tue Dec 17 11:50:48 AM CET 2024
+Starting RVL_CDIP_gt knn evaluation with original val dataset on partition: GPU
+Running on: tars
+Available CPUs: pid 3617496's current affinity list: 12,24,76,88 (logical CPU ids)
+Available GPUs: Tue Dec 17 11:50:48 2024       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 550.54.14              Driver Version: 550.54.14      CUDA Version: 12.4     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:A1:00.0 Off |                  Off |
+| 30%   29C    P8             25W /  300W |       0MiB /  49140MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI        PID   Type   Process name                              GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+/home/stud/m/mc085/mounted_home/dinov2/dinov2/layers/swiglu_ffn.py:43: UserWarning: xFormers is available (SwiGLU)
+  warnings.warn("xFormers is available (SwiGLU)")
+/home/stud/m/mc085/mounted_home/dinov2/dinov2/layers/attention.py:27: UserWarning: xFormers is available (Attention)
+  warnings.warn("xFormers is available (Attention)")
+/home/stud/m/mc085/mounted_home/dinov2/dinov2/layers/block.py:33: UserWarning: xFormers is available (Block)
+  warnings.warn("xFormers is available (Block)")
+I20241217 11:50:51 3617520 dinov2 submit.py:120] Submitted job_id: 3617698
+I20241217 11:50:51 3617520 dinov2 submit.py:122] Logs and checkpoints will be saved at: /home/stud/m/mc085/mounted_home/dinov2/RVL_CDIP_gt/eval/training_124999/knn_with_original_val_dataset

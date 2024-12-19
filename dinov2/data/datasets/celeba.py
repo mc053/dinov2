@@ -106,6 +106,12 @@ class CelebAMaskedTrain(CelebAOriginalTrain):
         super().__init__(root=root, transforms=transforms, transform=transform,
         target_transform=target_transform, image_dir_name=image_dir_name)
 
+class CelebAMaskedVal(CelebAOriginalTrain):
+    def __init__(self, root: str = os.path.dirname(os.path.abspath(__file__)), transforms=None,
+    transform=None, target_transform=None, image_dir_name="CelebA_masked/val"):
+        super().__init__(root=root, transforms=transforms, transform=transform,
+        target_transform=target_transform, image_dir_name=image_dir_name)
+
 
 ## class CelebABlurred(CelebAOriginal) ...
 ## class CelebADistorted(CelebAOriginal) ...

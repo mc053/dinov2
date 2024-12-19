@@ -60,8 +60,8 @@ ibot:
   head_hidden_dim: 2048
 train:
   batch_size_per_gpu: 12
-  dataset_path: CelebAMaskedTrain
-  output_dir: /home/stud/m/mc085/mounted_home/dinov2/CelebA_masked_C_2
+  dataset_path: RvlCdipOriginalTrain
+  output_dir: /home/stud/m/mc085/mounted_home/dinov2/RVL_CDIP_gt/eval/training_124999/knn_with_original_val_dataset
   saveckp_freq: 20
   seed: 0
   num_workers: 10

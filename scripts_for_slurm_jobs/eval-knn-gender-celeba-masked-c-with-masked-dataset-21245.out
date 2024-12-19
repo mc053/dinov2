@@ -1,0 +1,32 @@
+Tue Dec 17 11:34:50 AM CET 2024
+Starting CelebA_masked_C knn gender evaluation with masked val dataset on partition: GPU
+Running on: tars
+Available CPUs: pid 3607291's current affinity list: 6,7,70,71 (logical CPU ids)
+Available GPUs: Tue Dec 17 11:34:50 2024       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 550.54.14              Driver Version: 550.54.14      CUDA Version: 12.4     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA RTX A6000               Off |   00000000:21:00.0 Off |                  Off |
+| 30%   37C    P8             32W /  300W |       0MiB /  49140MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI        PID   Type   Process name                              GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+/home/stud/m/mc085/mounted_home/dinov2/dinov2/layers/swiglu_ffn.py:43: UserWarning: xFormers is available (SwiGLU)
+  warnings.warn("xFormers is available (SwiGLU)")
+/home/stud/m/mc085/mounted_home/dinov2/dinov2/layers/attention.py:27: UserWarning: xFormers is available (Attention)
+  warnings.warn("xFormers is available (Attention)")
+/home/stud/m/mc085/mounted_home/dinov2/dinov2/layers/block.py:33: UserWarning: xFormers is available (Block)
+  warnings.warn("xFormers is available (Block)")
+I20241217 11:34:53 3607311 dinov2 submit.py:120] Submitted job_id: 3607657
+I20241217 11:34:53 3607311 dinov2 submit.py:122] Logs and checkpoints will be saved at: /home/stud/m/mc085/mounted_home/dinov2/CelebA_masked_C/eval/training_124999/knn_gender_with_masked_val_dataset
