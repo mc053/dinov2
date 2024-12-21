@@ -1,6 +1,7 @@
 build/
 dist/
 embeddings/
+retrieval_ground_truths/
 *.egg-info/
 **/__pycache__/
 
