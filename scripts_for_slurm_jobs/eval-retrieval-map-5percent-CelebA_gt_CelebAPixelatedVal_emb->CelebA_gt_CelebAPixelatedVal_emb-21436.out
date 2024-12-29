@@ -1,0 +1,13 @@
+Sat Dec 28 08:19:40 AM CET 2024
+Starting CelebA retrieval MAP evaluation for scenario Unadapted/Pixel with Anonymized Query Image on partition: CPU
+Running on: marvin
+Available CPUs: pid 1776263's current affinity list: 1 (logical CPU ids)
+Loading gt_retrievals_file...
+gt_retrievals_file loaded.
+Calculating MAP:   0%|          | 0/2 [00:00<?, ?it/s]Calculating MAP:  50%|█████     | 1/2 [00:04<00:04,  4.43s/it]Calculating MAP: 100%|██████████| 2/2 [00:06<00:00,  3.14s/it]Calculating MAP: 100%|██████████| 2/2 [00:06<00:00,  3.33s/it]
+Traceback (most recent call last):
+  File "/home/stud/m/mc085/mounted_home/dinov2/mean_average_precision.py", line 136, in <module>
+    map_output_file = f"./retrieval_evaluations/map_{int(percent)}%_{query_embeddings_name}->{database_embeddings_name}.txt"
+                                                                     ^^^^^^^^^^^^^^^^^^^^^
+NameError: name 'query_embeddings_name' is not defined. Did you mean: 'query_embedding_name'?
+srun: error: marvin: task 0: Exited with exit code 1

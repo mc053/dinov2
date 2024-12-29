@@ -1,0 +1,13 @@
+Sat Dec 28 08:26:24 AM CET 2024
+Starting CelebA retrieval MAP evaluation for scenario Unadapted/Pixel with Anonymized Query Image on partition: CPU
+Running on: marvin
+Available CPUs: pid 1777079's current affinity list: 1 (logical CPU ids)
+Loading gt_retrievals_file...
+gt_retrievals_file loaded.
+Calculating MAP:   0%|          | 0/2 [00:00<?, ?it/s]Calculating MAP:  50%|█████     | 1/2 [00:04<00:04,  4.31s/it]Calculating MAP: 100%|██████████| 2/2 [00:06<00:00,  3.01s/it]Calculating MAP: 100%|██████████| 2/2 [00:06<00:00,  3.21s/it]
+Traceback (most recent call last):
+  File "/home/stud/m/mc085/mounted_home/dinov2/mean_average_precision.py", line 139, in <module>
+    with open(map_output_file, "w") as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: './retrieval_evaluations/map_5%_embeddings/CelebA_gt_CelebAPixelatedVal_emb.json->embeddings/CelebA_gt_CelebAPixelatedVal_emb.json.txt'
+srun: error: marvin: task 0: Exited with exit code 1
