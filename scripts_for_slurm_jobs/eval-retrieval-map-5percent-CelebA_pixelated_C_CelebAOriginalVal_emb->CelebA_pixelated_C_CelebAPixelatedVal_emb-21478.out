@@ -1,0 +1,29 @@
+Mon Dec 30 11:00:59 AM CET 2024
+Starting CelebA retrieval MAP evaluation for scenario Adaption C/Pixel with Unanonymized Query Image on partition: GPU
+Running on: tars
+Available CPUs: pid 2108454's current affinity list: 12,13,76,77 (logical CPU ids)
+Available GPUs: Mon Dec 30 11:00:59 2024       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 550.54.14              Driver Version: 550.54.14      CUDA Version: 12.4     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:81:00.0 Off |                  Off |
+| 30%   32C    P8             23W /  300W |       0MiB /  49140MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI        PID   Type   Process name                              GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+Loading gt_retrievals_file...
+gt_retrievals_file loaded.
+Calculating MAP:   0%|          | 0/19792 [00:00<?, ?it/s]Calculating MAP:   0%|          | 1/19792 [00:02<14:18:35,  2.60s/it]Calculating MAP:   0%|          | 2/19792 [00:07<20:51:18,  3.79s/it]Calculating MAP:   0%|          | 3/19792 [00:11<21:37:19,  3.93s/it]Calculating MAP:   0%|          | 4/19792 [00:15<23:08:07,  4.21s/it]Calculating MAP:   0%|          | 5/19792 [00:20<23:21:28,  4.25s/it]Calculating MAP:   0%|          | 6/19792 [00:23<21:32:43,  3.92s/it]Calculating MAP:   0%|          | 7/19792 [00:27<21:49:03,  3.97s/it]Calculating MAP:   0%|          | 8/19792 [00:31<20:47:56,  3.78s/it]Calculating MAP:   0%|          | 9/19792 [00:34<20:53:57,  3.80s/it]srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+slurmstepd-tars: error: *** STEP 21478.0 ON tars CANCELLED AT 2024-12-30T11:03:16 ***
+slurmstepd-tars: error: *** JOB 21478 ON tars CANCELLED AT 2024-12-30T11:03:16 ***

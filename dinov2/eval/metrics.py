@@ -39,18 +39,18 @@ class AccuracyAveraging(Enum):
     def __str__(self):
         return self.value
 
-
+# Set ks to 1 here. Otherwise the evaluation throws an exception whenever num_classes < ks.
 def build_metric(metric_type: MetricType, *, num_classes: int, ks: Optional[tuple] = None):
     if metric_type.accuracy_averaging is not None:
         return build_topk_accuracy_metric(
             average_type=metric_type.accuracy_averaging,
             num_classes=num_classes,
-            ks=(1, 5) if ks is None else ks,
+            ks=(1,) if ks is None else ks, # ks=(1, 5)
         )
     elif metric_type == MetricType.IMAGENET_REAL_ACCURACY:
         return build_topk_imagenet_real_accuracy_metric(
             num_classes=num_classes,
-            ks=(1, 5) if ks is None else ks,
+            ks=(1,) if ks is None else ks, # ks=(1, 5)
         )
 
     raise ValueError(f"Unknown metric type {metric_type}")

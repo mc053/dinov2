@@ -1,0 +1,33 @@
+Wed Jan  1 09:59:05 AM CET 2025
+Testing if paddle works
+Running on: tars
+Available CPUs: pid 3067882's current affinity list: 6,7,70,71 (logical CPU ids)
+Available GPUs: Wed Jan  1 09:59:05 2025       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 550.54.14              Driver Version: 550.54.14      CUDA Version: 12.4     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA RTX A6000               Off |   00000000:21:00.0 Off |                  Off |
+| 30%   34C    P8             22W /  300W |       0MiB /  49140MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI        PID   Type   Process name                              GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+Traceback (most recent call last):
+  File "/home/stud/m/mc085/mounted_home/dinov2/paddle_test.py", line 1, in <module>
+    from paddleocr import PaddleOCR, draw_ocr
+  File "/home/stud/m/mc085/mounted_home/pia11_clean/lib/python3.11/site-packages/paddleocr/__init__.py", line 14, in <module>
+    from .paddleocr import (
+  File "/home/stud/m/mc085/mounted_home/pia11_clean/lib/python3.11/site-packages/paddleocr/paddleocr.py", line 25, in <module>
+    import cv2
+ImportError: libGL.so.1: cannot open shared object file: No such file or directory
+srun: error: tars: task 0: Exited with exit code 1
