@@ -1,0 +1,38 @@
+Thu Jan  2 08:38:50 AM CET 2025
+Starting RVL-CDIP train set anonymization with mask out (100%) on partition: GPU
+Running on: deepthought
+Available CPUs: pid 2700521's current affinity list: 0,1,10,11 (logical CPU ids)
+Available GPUs: Thu Jan  2 08:38:50 2025       
++---------------------------------------------------------------------------------------+
+| NVIDIA-SMI 535.183.01             Driver Version: 535.183.01   CUDA Version: 12.2     |
+|-----------------------------------------+----------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |         Memory-Usage | GPU-Util  Compute M. |
+|                                         |                      |               MIG M. |
+|=========================================+======================+======================|
+|   0  NVIDIA TITAN Xp                On  | 00000000:0A:00.0 Off |                  N/A |
+| 23%   23C    P8               8W / 250W |      1MiB / 12288MiB |      0%      Default |
+|                                         |                      |                  N/A |
++-----------------------------------------+----------------------+----------------------+
+                                                                                         
++---------------------------------------------------------------------------------------+
+| Processes:                                                                            |
+|  GPU   GI   CI        PID   Type   Process name                            GPU Memory |
+|        ID   ID                                                             Usage      |
+|=======================================================================================|
+|  No running processes found                                                           |
++---------------------------------------------------------------------------------------+
+Starting anonymization...
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/stud/m/mc085/mounted_home/dinov2/dinov2/data/anonymizations.py", line 152, in <module>
+    anonymizer.anonymize_rvlcdip_imgs(input_path, output_path, bbox_json_path)
+  File "/home/stud/m/mc085/mounted_home/dinov2/dinov2/data/anonymizations.py", line 89, in anonymize_rvlcdip_imgs
+    bbox_data = self._load_bboxes(bbox_json_path)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/stud/m/mc085/mounted_home/dinov2/dinov2/data/anonymizations.py", line 109, in _load_bboxes
+    with open(bbox_json_path, "r") as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/home/stud/m/mc085/mounted_home/dinov2/dinov2/data/datasets/RVL-CDIP/list_bboxes_rvl_cdip_train_100_paddle_ocr.json'
+srun: error: deepthought: task 0: Exited with exit code 1

@@ -13,4 +13,5 @@ retrieval_ground_truths/
 *.png
 .vscode/
 *.pth
-retrieval_evaluations/*.json
+*.json
+*.out

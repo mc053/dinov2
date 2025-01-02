@@ -106,8 +106,8 @@ if __name__ == "__main__":
 #
     #print(f"BBoxes saved to {output_csv_path}")
 
-    image_directory = "/home/stud/m/mc085/mounted_home/dinov2/dinov2/data/datasets/RVL-CDIP/RVL-CDIP_original/train"
-    output_json_path = "/home/stud/m/mc085/mounted_home/dinov2/dinov2/data/datasets/RVL-CDIP/list_bboxes_rvl_cdip_train_100_paddle_ocr.csv"
+    image_directory = "/home/stud/m/mc085/mounted_home/dinov2/dinov2/data/datasets/RVL-CDIP/RVL-CDIP_original/test"
+    output_json_path = "/home/stud/m/mc085/mounted_home/dinov2/dinov2/data/datasets/RVL-CDIP/list_bboxes_rvl_cdip_test_100_paddle_ocr.json"
 
     detector = RvlCdipBBoxesDetectorPaddleOCR()
     save_rvl_cdip_bboxes_to_csv(detector, image_directory, output_json_path)
