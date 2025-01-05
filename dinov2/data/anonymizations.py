@@ -7,6 +7,7 @@ from PIL import Image
 from tqdm import tqdm
 
 # Adjust main method before starting job.
+# The different anonymization techniques could be refactored, e.g. as Strategy Pattern. But for the time being, it's fine.
 
 class CelebAAnonymizer:
     def anonymize_celeba_imgs(self, input_path: str, output_path: str, bbox_csv_path: str) -> None:
@@ -94,8 +95,7 @@ class RvlCdipAnonymizer:
             output_image_path = os.path.join(output_path, image_name)
 
             if image_name not in bbox_data:
-                print(f"No bounding boxes found for {image_name}. Skipping.")
-                continue
+                raise ValueError(f"No bounding box found for {image_name}. This should not happen after sorting out unrecognized images.")
 
             try:
                 image = Image.open(input_image_path).convert("RGB")
@@ -142,9 +142,9 @@ if __name__ == "__main__":
     # anonymizer.anonymize_celeba_imgs(input_path, output_path, bbox_csv_path)
     # print(f"Anonymization completed. Anonymized images saved in {output_path}")
 
-    input_path = "/home/stud/m/mc085/mounted_home/dinov2/dinov2/data/datasets/RVL-CDIP/RVL-CDIP_original/train"
-    output_path = "/home/stud/m/mc085/mounted_home/dinov2/dinov2/data/datasets/RVL-CDIP/RVL-CDIP_100_masked/train"
-    bbox_json_path = "/home/stud/m/mc085/mounted_home/dinov2/dinov2/data/datasets/RVL-CDIP/list_bboxes_rvl_cdip_train_100_paddle_ocr.json"
+    input_path = "/home/stud/m/mc085/mounted_home/dinov2/dinov2/data/datasets/RVL-CDIP/RVL-CDIP_original/val"
+    output_path = "/home/stud/m/mc085/mounted_home/dinov2/dinov2/data/datasets/RVL-CDIP/RVL-CDIP_100_masked/val"
+    bbox_json_path = "/home/stud/m/mc085/mounted_home/dinov2/dinov2/data/datasets/RVL-CDIP/list_bboxes_rvl_cdip_val_100_paddle_ocr.json"
 
     anonymizer = RVLCDIPAnonymizerMaskOut()
 

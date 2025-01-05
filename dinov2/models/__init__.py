@@ -10,7 +10,7 @@ from . import vision_transformer as vits
 
 logger = logging.getLogger("dinov2")
 
-
+# https://gitlab.com/ziegleto-machine-learning/dino/-/blob/main/visualize_attention.py#L46
 def build_model(args, only_teacher=False, img_size=224):
     args.arch = args.arch.removesuffix("_memeff")
     if "vit" in args.arch:
@@ -18,11 +18,11 @@ def build_model(args, only_teacher=False, img_size=224):
             img_size=img_size,
             patch_size=args.patch_size,
             init_values=args.layerscale,
-            ffn_layer=args.ffn_layer,
-            block_chunks=args.block_chunks,
+            # ffn_layer=args.ffn_layer,
+            block_chunks=0,#args.block_chunks,
             qkv_bias=args.qkv_bias,
             proj_bias=args.proj_bias,
-            ffn_bias=args.ffn_bias,
+            # ffn_bias=args.ffn_bias,
             num_register_tokens=args.num_register_tokens,
             interpolate_offset=args.interpolate_offset,
             interpolate_antialias=args.interpolate_antialias,

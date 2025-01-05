@@ -3,7 +3,7 @@
 #SBATCH --output train-rvl-cdip-gt-%j.out
 #SBATCH --partition gpu
 #SBATCH --gpus 1
-#SBATCH --nodelist=tars
+#SBATCH --nodelist=ada
 #SBATCH --mail-type=END,FAIL
 #SBATCH --mail-user=mc085@hdm-stuttgart.de
 

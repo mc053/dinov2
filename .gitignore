@@ -15,3 +15,4 @@ retrieval_ground_truths/
 *.pth
 *.json
 *.out
+dinov2/data/datasets/RVL-CDIP/list_bboxes_*
