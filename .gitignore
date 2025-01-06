@@ -15,3 +15,4 @@ retrieval_ground_truths/
 *.pth
 *.json
 *.out
+*.csv
