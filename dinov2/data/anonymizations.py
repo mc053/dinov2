@@ -87,15 +87,14 @@ class RvlCdipAnonymizer:
     def anonymize_rvlcdip_imgs(self, input_path: str, output_path: str, bbox_json_path: str) -> None:
         os.makedirs(output_path, exist_ok=True)
         bbox_data = self._load_bboxes(bbox_json_path)
-        images = [f for f in os.listdir(input_path) if f.lower().endswith(('.jpg', '.png'))]    # [:100] for testing with first 100 images.
+        images = [f for f in os.listdir(input_path) if f.lower().endswith(('.jpg', '.png'))][:100]    # [:100] for testing with first 100 images.
 
         for image_name in tqdm(images, desc="Anonymizing images"):
             input_image_path = os.path.join(input_path, image_name)
             output_image_path = os.path.join(output_path, image_name)
 
             if image_name not in bbox_data:
-                print(f"No bounding boxes found for {image_name}. Skipping.")
-                continue
+                raise ValueError(f"No bounding box found for {image_name}. This should not happen after sorting out unrecognized images.")
 
             try:
                 image = Image.open(input_image_path).convert("RGB")
@@ -142,9 +141,9 @@ if __name__ == "__main__":
     # anonymizer.anonymize_celeba_imgs(input_path, output_path, bbox_csv_path)
     # print(f"Anonymization completed. Anonymized images saved in {output_path}")
 
-    input_path = "/home/stud/m/mc085/mounted_home/dinov2/dinov2/data/datasets/RVL-CDIP/RVL-CDIP_original/train"
-    output_path = "/home/stud/m/mc085/mounted_home/dinov2/dinov2/data/datasets/RVL-CDIP/RVL-CDIP_100_masked/train"
-    bbox_json_path = "/home/stud/m/mc085/mounted_home/dinov2/dinov2/data/datasets/RVL-CDIP/list_bboxes_rvl_cdip_train_100_paddle_ocr.json"
+    input_path = "/home/stud/m/mc085/mounted_home/dinov2/dinov2/data/datasets/RVL-CDIP/RVL-CDIP_original/val"
+    output_path = "/home/stud/m/mc085/mounted_home/dinov2/dinov2/data/datasets/RVL-CDIP/RVL-CDIP_25_masked/val"
+    bbox_json_path = "/home/stud/m/mc085/mounted_home/dinov2/dinov2/data/datasets/RVL-CDIP/list_bboxes_rvl_cdip_val_25_paddle_ocr.json"
 
     anonymizer = RVLCDIPAnonymizerMaskOut()
 

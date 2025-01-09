@@ -5,9 +5,9 @@ import random
 import numpy as np
 from enum import Enum
 from decimal import Decimal, ROUND_HALF_UP
-# from paddleocr import PaddleOCR, draw_ocr
+from paddleocr import PaddleOCR, draw_ocr
 from PIL import Image
-# from mtcnn.mtcnn import MTCNN
+from mtcnn.mtcnn import MTCNN
 from typing import Optional, Tuple
 from tqdm import tqdm
 
@@ -184,12 +184,12 @@ def reduce_rvl_cdip_bboxes(input_json: str, output_json: str, reduction_step: Re
 
     reduced_data = {}
 
-    for image_name, content in data.items():
+    for image_name, content in tqdm(data.items(), desc="Reducing Bounding Boxes"):
         bbs = content["bbs"]
         original_bbs_count = content["original_bbs_count"]
 
         reduction_amount = calculate_reduction_amount(original_bbs_count, reduction_step)
-        reduced_count = max(1, len(bbs) - reduction_amount)  # Keep at least 1 BB.
+        reduced_count = int(len(bbs) - reduction_amount)
         reduced_bbs = random.sample(bbs, reduced_count)
 
         reduced_data[image_name] = {
@@ -210,4 +210,8 @@ if __name__ == "__main__":
     # save_rvl_cdip_bboxes_to_json(detector, image_directory, output_json_path)
 # 
     # print(f"BBoxes saved to {output_json_path}")
-    test_calculate_reduction_amount()
+    # test_calculate_reduction_amount()
+
+    input_json = "/home/stud/m/mc085/mounted_home/dinov2/dinov2/data/datasets/RVL-CDIP/list_bboxes_rvl_cdip_val_50_paddle_ocr.json"
+    output_json = "/home/stud/m/mc085/mounted_home/dinov2/dinov2/data/datasets/RVL-CDIP/list_bboxes_rvl_cdip_val_25_paddle_ocr.json"
+    reduce_rvl_cdip_bboxes(input_json, output_json, ReductionStep.FROM_50_TO_25)
