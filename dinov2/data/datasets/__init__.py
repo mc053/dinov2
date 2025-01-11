@@ -5,5 +5,5 @@
 
 from .image_net import ImageNet
 from .image_net_22k import ImageNet22k
-from .celeba import CelebAOriginalTrain, CelebAOriginalVal, CelebAPixelatedTrain, CelebAPixelatedVal, CelebAMaskedTrain, CelebAMaskedVal
+from .celeba import CelebAOriginalTrain, CelebAOriginalVal, CelebAPixelatedTrain, CelebAPixelatedVal, CelebAMaskedTrain, CelebAMaskedVal, CelebAPixelatedATrain
 from .rvl_cdip import RvlCdipOriginalTrain, RvlCdipOriginalVal, RvlCdip100MaskedTrain

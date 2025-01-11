@@ -10,7 +10,7 @@ from typing import Any, Callable, List, Optional, TypeVar
 import torch
 from torch.utils.data import Sampler
 
-from .datasets import ImageNet, ImageNet22k, CelebAOriginalTrain, CelebAOriginalVal, CelebAPixelatedTrain, CelebAPixelatedVal, CelebAMaskedTrain, CelebAMaskedVal, RvlCdipOriginalTrain, RvlCdipOriginalVal, RvlCdip100MaskedTrain
+from .datasets import ImageNet, ImageNet22k, CelebAOriginalTrain, CelebAOriginalVal, CelebAPixelatedTrain, CelebAPixelatedVal, CelebAMaskedTrain, CelebAMaskedVal, RvlCdipOriginalTrain, RvlCdipOriginalVal, RvlCdip100MaskedTrain, CelebAPixelatedATrain
 from .samplers import EpochSampler, InfiniteSampler, ShardedInfiniteSampler
 
 
@@ -76,6 +76,8 @@ def _parse_dataset_str(dataset_str: str):
         class_ = RvlCdipOriginalVal
     elif name == "RvlCdip100MaskedTrain":
         class_ = RvlCdip100MaskedTrain
+    elif name == "CelebAPixelatedATrain":
+        class_ = CelebAPixelatedATrain
     else:
         raise ValueError(f'Unsupported dataset "{name}"')
 

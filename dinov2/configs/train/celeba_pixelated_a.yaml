@@ -1,0 +1,6 @@
+train:
+  dataset_path: CelebAPixelatedATrain
+  batch_size_per_gpu: 1 # 12
+student:
+  block_chunks: 4
+  in_chans: 3
