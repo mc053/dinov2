@@ -87,7 +87,7 @@ class RvlCdipAnonymizer:
     def anonymize_rvlcdip_imgs(self, input_path: str, output_path: str, bbox_json_path: str) -> None:
         os.makedirs(output_path, exist_ok=True)
         bbox_data = self._load_bboxes(bbox_json_path)
-        images = [f for f in os.listdir(input_path) if f.lower().endswith(('.jpg', '.png'))][:100]    # [:100] for testing with first 100 images.
+        images = [f for f in os.listdir(input_path) if f.lower().endswith(('.jpg', '.png'))]    # [:100] for testing with first 100 images.
 
         for image_name in tqdm(images, desc="Anonymizing images"):
             input_image_path = os.path.join(input_path, image_name)
@@ -130,6 +130,23 @@ class RVLCDIPAnonymizerMaskOut(RvlCdipAnonymizer):
 
         return Image.fromarray(anonymized_array.astype(np.uint8))
 
+class RVLCDIPAnonymizerPixelation(RvlCdipAnonymizer):
+    def _apply_anonymization_for_mask(self, image: Image.Image, mask: np.ndarray, pixel_ratio=0.1) -> Image.Image:
+        width, height = image.size
+    
+        new_width = int(width * pixel_ratio)
+        new_height = int(height * pixel_ratio)
+        
+        pixelated_image = image.resize((new_width, new_height), resample=Image.NEAREST)
+        pixelated_image = pixelated_image.resize((width, height), resample=Image.NEAREST)
+        
+        original_array = np.array(image)
+        pixelated_array = np.array(pixelated_image)
+        
+        anonymized_array = original_array * (1 - mask) + pixelated_array * mask
+        
+        return Image.fromarray(anonymized_array.astype(np.uint8))
+
 if __name__ == "__main__":
     # input_path = "/home/stud/m/mc085/mounted_home/dinov2/dinov2/data/datasets/CelebA/CelebA_original"
     # output_path = "/home/stud/m/mc085/mounted_home/dinov2/dinov2/data/datasets/CelebA/CelebA_pixelated"
@@ -141,11 +158,11 @@ if __name__ == "__main__":
     # anonymizer.anonymize_celeba_imgs(input_path, output_path, bbox_csv_path)
     # print(f"Anonymization completed. Anonymized images saved in {output_path}")
 
-    input_path = "/home/stud/m/mc085/mounted_home/dinov2/dinov2/data/datasets/RVL-CDIP/RVL-CDIP_original/val"
-    output_path = "/home/stud/m/mc085/mounted_home/dinov2/dinov2/data/datasets/RVL-CDIP/RVL-CDIP_25_masked/val"
-    bbox_json_path = "/home/stud/m/mc085/mounted_home/dinov2/dinov2/data/datasets/RVL-CDIP/list_bboxes_rvl_cdip_val_25_paddle_ocr.json"
+    input_path = "/home/stud/m/mc085/mounted_home/dinov2/dinov2/data/datasets/RVL-CDIP/RVL-CDIP_original/train"
+    output_path = "/home/stud/m/mc085/mounted_home/dinov2/dinov2/data/datasets/RVL-CDIP/RVL-CDIP_100_pixelated/train"
+    bbox_json_path = "/home/stud/m/mc085/mounted_home/dinov2/dinov2/data/datasets/RVL-CDIP/list_bboxes_rvl_cdip_train_100_paddle_ocr.json"
 
-    anonymizer = RVLCDIPAnonymizerMaskOut()
+    anonymizer = RVLCDIPAnonymizerPixelation()
 
     print("Starting anonymization...")
     anonymizer.anonymize_rvlcdip_imgs(input_path, output_path, bbox_json_path)
