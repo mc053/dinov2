@@ -180,6 +180,12 @@ def do_train(cfg, model, resume=False):
         local_crops_size=cfg.crops.local_crops_size,
     )
 
+    try:
+        a_b_training = cfg.train.a_b_training
+    except Exception: # a_b_training not specified -> collate crops normally
+        a_b_training = None
+
+
     collate_fn = partial(
         collate_data_and_cast,
         mask_ratio_tuple=cfg.ibot.mask_ratio_min_max,
@@ -187,6 +193,7 @@ def do_train(cfg, model, resume=False):
         n_tokens=n_tokens,
         mask_generator=mask_generator,
         dtype=inputs_dtype,
+        a_b_training=a_b_training
     )
 
     # setup data loader

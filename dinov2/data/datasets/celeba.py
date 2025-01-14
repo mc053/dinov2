@@ -112,7 +112,7 @@ class CelebAMaskedVal(CelebAOriginalTrain):
         super().__init__(root=root, transforms=transforms, transform=transform,
         target_transform=target_transform, image_dir_name=image_dir_name)
 
-class CelebAOriginalATrain(ExtendedVisionDataset):
+class CelebAABTrain(ExtendedVisionDataset):
     def __init__(self, root: str = os.path.dirname(os.path.abspath(__file__)), transforms=None,
                  transform=None, target_transform=None, 
                  original_dir_name="CelebA_original/train", 
@@ -188,7 +188,7 @@ class CelebAOriginalATrain(ExtendedVisionDataset):
     def __len__(self):
         return len(self.paths)
 
-class CelebAPixelatedATrain(CelebAOriginalATrain):
+class CelebAPixelatedABTrain(CelebAABTrain):
     def __init__(self, root: str = os.path.dirname(os.path.abspath(__file__)), transforms=None,
                  transform=None, target_transform=None):
         super().__init__(root=root, transforms=transforms, transform=transform, target_transform=target_transform,

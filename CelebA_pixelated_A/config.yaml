@@ -60,7 +60,7 @@ ibot:
   head_hidden_dim: 2048
 train:
   batch_size_per_gpu: 1
-  dataset_path: CelebAPixelatedATrain
+  dataset_path: CelebAPixelatedTrain
   output_dir: /home/stud/m/mc085/mounted_home/dinov2/CelebA_pixelated_A
   saveckp_freq: 20
   seed: 0
