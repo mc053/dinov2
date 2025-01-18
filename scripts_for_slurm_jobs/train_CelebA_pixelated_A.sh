@@ -4,6 +4,8 @@
 #SBATCH --partition gpu
 #SBATCH --gpus 1
 #SBATCH --nodelist=tars
+#SBATCH --mail-type=END,FAIL
+#SBATCH --mail-user=mc085@hdm-stuttgart.de
 
 # Print some node information
 echo "$(date)"

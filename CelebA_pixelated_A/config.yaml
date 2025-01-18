@@ -59,8 +59,8 @@ ibot:
   head_nlayers: 3
   head_hidden_dim: 2048
 train:
-  batch_size_per_gpu: 1
-  dataset_path: CelebAPixelatedTrain
+  batch_size_per_gpu: 12
+  dataset_path: CelebAPixelatedABTrain
   output_dir: /home/stud/m/mc085/mounted_home/dinov2/CelebA_pixelated_A
   saveckp_freq: 20
   seed: 0
@@ -68,6 +68,7 @@ train:
   OFFICIAL_EPOCH_LENGTH: 1250
   cache_dataset: true
   centering: centering
+  a_b_training: A
 student:
   arch: vit_large
   patch_size: 16
@@ -95,7 +96,7 @@ optim:
   weight_decay: 0.04
   weight_decay_end: 0.4
   base_lr: 0.004
-  lr: 0.000125
+  lr: 0.0004330127018922193
   warmup_epochs: 10
   min_lr: 1.0e-06
   clip_grad: 3.0

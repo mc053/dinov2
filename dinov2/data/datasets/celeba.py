@@ -194,5 +194,11 @@ class CelebAPixelatedABTrain(CelebAABTrain):
         super().__init__(root=root, transforms=transforms, transform=transform, target_transform=target_transform,
                          anonymized_dir_name="CelebA_pixelated/train")
 
+class CelebAMaskedABTrain(CelebAABTrain):
+    def __init__(self, root: str = os.path.dirname(os.path.abspath(__file__)), transforms=None,
+                 transform=None, target_transform=None):
+        super().__init__(root=root, transforms=transforms, transform=transform, target_transform=target_transform,
+                         anonymized_dir_name="CelebA_masked/train")                         
+
 ## class CelebABlurred(CelebAOriginal) ...
 ## class CelebADistorted(CelebAOriginal) ...
