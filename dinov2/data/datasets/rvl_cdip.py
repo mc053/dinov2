@@ -82,3 +82,9 @@ class RvlCdip100PixelatedTrain(RvlCdipOriginalTrain):
     transform=None, target_transform=None, image_dir_name="RVL-CDIP_100_pixelated/train"):
         super().__init__(root=root, transforms=transforms, transform=transform,
         target_transform=target_transform, image_dir_name=image_dir_name)
+
+class RvlCdip100PixelatedVal(RvlCdipOriginalTrain):
+    def __init__(self, root: str = os.path.dirname(os.path.abspath(__file__)), transforms=None,
+    transform=None, target_transform=None, image_dir_name="RVL-CDIP_100_pixelated/val"):
+        super().__init__(root=root, transforms=transforms, transform=transform,
+        target_transform=target_transform, image_dir_name=image_dir_name)
