@@ -18,7 +18,7 @@ echo "Available GPUs: $(nvidia-smi)"
 srun --unbuffered enroot start --mount $HOME:$HOME/mounted_home -w mc085 bash -c "
     source /home/stud/m/mc085/mounted_home/dinov2_env/bin/activate &&
     cd /home/stud/m/mc085/mounted_home/dinov2 &&
-    PYTHONPATH=. python dinov2/train/train.py --config-file dinov2/configs/train/rvl_cdip_100_masked_a.yaml --output-dir RVL_CDIP_100_masked_A
+    PYTHONPATH=. python dinov2/train/train.py --config-file dinov2/configs/train/rvl_cdip_100_masked_a.yaml --output-dir RVL_CDIP_100_masked_A_2
 "
 
 # when starting with run/train/train.py --nodes 1 --gpus 1
