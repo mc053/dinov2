@@ -6,16 +6,22 @@
 import torch
 import random
 
+from PIL import Image
+import torchvision.transforms as T
+import os
 
-def collate_data_and_cast(samples_list, mask_ratio_tuple, mask_probability, dtype, n_tokens=None, mask_generator=None):
+def collate_data_and_cast(samples_list, mask_ratio_tuple, mask_probability, dtype, n_tokens=None, mask_generator=None, a_b_training=None):
     # dtype = torch.half  # TODO: Remove
 
-    n_global_crops = len(samples_list[0][0]["global_crops"])
-    n_local_crops = len(samples_list[0][0]["local_crops"])
+    n_global_crops = len(samples_list[0][0]["global_crops"]) # 2
+    n_local_crops = len(samples_list[0][0]["local_crops"]) # 8
 
-    collated_global_crops = torch.stack([s[0]["global_crops"][i] for i in range(n_global_crops) for s in samples_list])
-
-    collated_local_crops = torch.stack([s[0]["local_crops"][i] for i in range(n_local_crops) for s in samples_list])
+    if a_b_training == "A":
+        collated_global_crops, collated_local_crops = collate_original_global_and_anonymized_local_crops(samples_list, n_global_crops, n_local_crops)
+    elif a_b_training == "B":
+        collated_global_crops, collated_local_crops = collate_anonymized_global_and_original_local_crops(samples_list, n_global_crops, n_local_crops)
+    else:
+        collated_global_crops, collated_local_crops = collate_crops_normally(samples_list, n_global_crops, n_local_crops)
 
     B = len(collated_global_crops)
     N = n_tokens
@@ -47,3 +53,44 @@ def collate_data_and_cast(samples_list, mask_ratio_tuple, mask_probability, dtyp
         "upperbound": upperbound,
         "n_masked_patches": torch.full((1,), fill_value=mask_indices_list.shape[0], dtype=torch.long),
     }
+
+def collate_original_global_and_anonymized_local_crops(samples_list, n_global_crops, n_local_crops):
+    collated_global_crops = torch.stack([s[0]["global_crops"][i] for i in range(n_global_crops) for s in samples_list])
+    collated_local_crops = torch.stack([s[1]["local_crops"][i] for i in range(n_local_crops) for s in samples_list])
+
+    # visualize_collated_crops(collated_global_crops, collated_local_crops)
+    return collated_global_crops, collated_local_crops
+
+def collate_anonymized_global_and_original_local_crops(samples_list, n_global_crops, n_local_crops):
+    collated_global_crops = torch.stack([s[1]["global_crops"][i] for i in range(n_global_crops) for s in samples_list])
+    collated_local_crops = torch.stack([s[0]["local_crops"][i] for i in range(n_local_crops) for s in samples_list])
+
+    # visualize_collated_crops(collated_global_crops, collated_local_crops)
+    return collated_global_crops, collated_local_crops
+
+def collate_crops_normally(samples_list, n_global_crops, n_local_crops):
+    collated_global_crops = torch.stack([s[0]["global_crops"][i] for i in range(n_global_crops) for s in samples_list])
+    collated_local_crops = torch.stack([s[0]["local_crops"][i] for i in range(n_local_crops) for s in samples_list])
+
+    # visualize_collated_crops(collated_global_crops, collated_local_crops)
+    return collated_global_crops, collated_local_crops
+
+def visualize_collated_crops(collated_global_crops, collated_local_crops, output_dir="crop_visualizations"):
+    transform_to_image = T.ToPILImage()
+    os.makedirs(output_dir, exist_ok=True)
+
+    if any(os.listdir(output_dir)):
+        print(f"Directory '{output_dir}' is not empty. Skipping crop visualization.")
+        return
+
+    for crop_idx, crop in enumerate(collated_global_crops):
+        global_crop_img = transform_to_image(crop.cpu())
+        filename = os.path.join(output_dir, f"global_crop{crop_idx}.png")
+        global_crop_img.save(filename)
+        print(f"Saved: {filename}")
+
+    for crop_idx, crop in enumerate(collated_local_crops):
+        local_crop_img = transform_to_image(crop.cpu())
+        filename = os.path.join(output_dir, f"local_crop{crop_idx}.png")
+        local_crop_img.save(filename)
+        print(f"Saved: {filename}")

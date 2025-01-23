@@ -1,0 +1,240 @@
+I20250116 17:46:52 2019156 dinov2 config.py:59] git:
+  sha: 90f3b9435f92e0479b8e93adaefed55eb315da87, status: has uncommitted changes, branch: main
+
+I20250116 17:46:52 2019156 dinov2 config.py:60] batch_size: 256
+config_file: CelebA_pixelated_B/config.yaml
+gather_on_cpu: False
+n_per_class_list: [-1]
+n_tries: 1
+nb_knn: [10, 20, 100, 200]
+opts: ['train.output_dir=/home/stud/m/mc085/mounted_home/dinov2/CelebA_pixelated_B/eval/training_124999/knn_gender_with_pixelated_train_and_val_dataset']
+output_dir: /home/stud/m/mc085/mounted_home/dinov2/CelebA_pixelated_B/eval/training_124999/knn_gender_with_pixelated_train_and_val_dataset
+pretrained_weights: CelebA_pixelated_B/eval/training_124999/teacher_checkpoint.pth
+temperature: 0.07
+train_dataset_str: CelebAPixelatedTrain
+val_dataset_str: CelebAPixelatedVal
+I20250116 17:46:52 2019156 dinov2 config.py:26] sqrt scaling learning rate; base: 0.004, new: 0.0004330127018922193
+I20250116 17:46:52 2019156 dinov2 config.py:33] MODEL:
+  WEIGHTS: ''
+compute_precision:
+  grad_scaler: true
+  teacher:
+    backbone:
+      sharding_strategy: SHARD_GRAD_OP
+      mixed_precision:
+        param_dtype: fp16
+        reduce_dtype: fp16
+        buffer_dtype: fp32
+    dino_head:
+      sharding_strategy: SHARD_GRAD_OP
+      mixed_precision:
+        param_dtype: fp16
+        reduce_dtype: fp16
+        buffer_dtype: fp32
+    ibot_head:
+      sharding_strategy: SHARD_GRAD_OP
+      mixed_precision:
+        param_dtype: fp16
+        reduce_dtype: fp16
+        buffer_dtype: fp32
+  student:
+    backbone:
+      sharding_strategy: SHARD_GRAD_OP
+      mixed_precision:
+        param_dtype: fp16
+        reduce_dtype: fp16
+        buffer_dtype: fp32
+    dino_head:
+      sharding_strategy: SHARD_GRAD_OP
+      mixed_precision:
+        param_dtype: fp16
+        reduce_dtype: fp32
+        buffer_dtype: fp32
+    ibot_head:
+      sharding_strategy: SHARD_GRAD_OP
+      mixed_precision:
+        param_dtype: fp16
+        reduce_dtype: fp32
+        buffer_dtype: fp32
+dino:
+  loss_weight: 1.0
+  head_n_prototypes: 65536
+  head_bottleneck_dim: 256
+  head_nlayers: 3
+  head_hidden_dim: 2048
+  koleo_loss_weight: 0.1
+ibot:
+  loss_weight: 1.0
+  mask_sample_probability: 0.5
+  mask_ratio_min_max:
+  - 0.1
+  - 0.5
+  separate_head: false
+  head_n_prototypes: 65536
+  head_bottleneck_dim: 256
+  head_nlayers: 3
+  head_hidden_dim: 2048
+train:
+  batch_size_per_gpu: 12
+  dataset_path: CelebAPixelatedABTrain
+  output_dir: /home/stud/m/mc085/mounted_home/dinov2/CelebA_pixelated_B/eval/training_124999/knn_gender_with_pixelated_train_and_val_dataset
+  saveckp_freq: 20
+  seed: 0
+  num_workers: 10
+  OFFICIAL_EPOCH_LENGTH: 1250
+  cache_dataset: true
+  centering: centering
+  a_b_training: B
+student:
+  arch: vit_large
+  patch_size: 16
+  drop_path_rate: 0.3
+  layerscale: 1.0e-05
+  drop_path_uniform: true
+  pretrained_weights: ''
+  ffn_layer: mlp
+  block_chunks: 4
+  qkv_bias: true
+  proj_bias: true
+  ffn_bias: true
+  num_register_tokens: 0
+  interpolate_antialias: false
+  interpolate_offset: 0.1
+  in_chans: 3
+teacher:
+  momentum_teacher: 0.992
+  final_momentum_teacher: 1
+  warmup_teacher_temp: 0.04
+  teacher_temp: 0.07
+  warmup_teacher_temp_epochs: 30
+optim:
+  epochs: 100
+  weight_decay: 0.04
+  weight_decay_end: 0.4
+  base_lr: 0.004
+  lr: 0.0004330127018922193
+  warmup_epochs: 10
+  min_lr: 1.0e-06
+  clip_grad: 3.0
+  freeze_last_layer_epochs: 1
+  scaling_rule: sqrt_wrt_1024
+  patch_embed_lr_mult: 0.2
+  layerwise_decay: 0.9
+  adamw_beta1: 0.9
+  adamw_beta2: 0.999
+crops:
+  global_crops_scale:
+  - 0.32
+  - 1.0
+  local_crops_number: 8
+  local_crops_scale:
+  - 0.05
+  - 0.32
+  global_crops_size: 224
+  local_crops_size: 96
+evaluation:
+  eval_period_iterations: 12500
+
+I20250116 17:46:52 2019156 dinov2 vision_transformer.py:122] using MLP layer as FFN
+I20250116 17:46:55 2019156 dinov2 utils.py:26] Take key teacher in provided checkpoint dict
+I20250116 17:46:55 2019156 dinov2 utils.py:33] Pretrained weights found at CelebA_pixelated_B/eval/training_124999/teacher_checkpoint.pth and loaded with msg: _IncompatibleKeys(missing_keys=[], unexpected_keys=['dino_head.mlp.0.weight', 'dino_head.mlp.0.bias', 'dino_head.mlp.2.weight', 'dino_head.mlp.2.bias', 'dino_head.mlp.4.weight', 'dino_head.mlp.4.bias', 'dino_head.last_layer.weight_g', 'dino_head.last_layer.weight_v'])
+I20250116 17:46:55 2019156 dinov2 loaders.py:110] using dataset: "CelebAPixelatedTrain"
+I20250116 17:46:57 2019156 dinov2 loaders.py:115] # of dataset samples: 162,127
+I20250116 17:46:57 2019156 dinov2 loaders.py:110] using dataset: "CelebAPixelatedVal"
+I20250116 17:46:58 2019156 dinov2 loaders.py:115] # of dataset samples: 19,792
+I20250116 17:46:58 2019156 dinov2 knn.py:260] Extracting features for train set...
+I20250116 17:46:58 2019156 dinov2 loaders.py:173] sampler: distributed
+I20250116 17:46:58 2019156 dinov2 loaders.py:232] using PyTorch data loader
+W20250116 17:46:58 2019156 py.warnings warnings.py:109] /home/stud/m/mc085/mounted_home/dinov2_env/lib/python3.9/site-packages/torch/utils/data/dataloader.py:561: UserWarning: This DataLoader will create 5 worker processes in total. Our suggested max number of worker in current system is 4, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+  warnings.warn(_create_warning_msg(
+
+I20250116 17:46:58 2019156 dinov2 loaders.py:245] # of batches: 634
+I20250116 17:47:04 2019156 dinov2 utils.py:129] Storing features into tensor of shape torch.Size([162127, 1024])
+I20250116 17:47:04 2019156 dinov2 helpers.py:102]   [  0/634]  eta: 1:02:49    time: 5.944888  data: 2.413421  max mem: 3463
+I20250116 17:47:07 2019156 dinov2 helpers.py:102]   [ 10/634]  eta: 0:09:06    time: 0.875367  data: 0.219666  max mem: 4109
+I20250116 17:47:12 2019156 dinov2 helpers.py:102]   [ 20/634]  eta: 0:06:53    time: 0.409041  data: 0.000302  max mem: 4109
+I20250116 17:47:16 2019156 dinov2 helpers.py:102]   [ 30/634]  eta: 0:06:02    time: 0.449850  data: 0.000326  max mem: 4109
+I20250116 17:47:21 2019156 dinov2 helpers.py:102]   [ 40/634]  eta: 0:05:34    time: 0.449757  data: 0.000312  max mem: 4109
+I20250116 17:47:25 2019156 dinov2 helpers.py:102]   [ 50/634]  eta: 0:05:16    time: 0.449863  data: 0.000282  max mem: 4109
+I20250116 17:47:30 2019156 dinov2 helpers.py:102]   [ 60/634]  eta: 0:05:02    time: 0.450482  data: 0.000284  max mem: 4109
+I20250116 17:47:34 2019156 dinov2 helpers.py:102]   [ 70/634]  eta: 0:04:51    time: 0.451028  data: 0.000342  max mem: 4109
+I20250116 17:47:39 2019156 dinov2 helpers.py:102]   [ 80/634]  eta: 0:04:41    time: 0.451520  data: 0.000348  max mem: 4109
+I20250116 17:47:43 2019156 dinov2 helpers.py:102]   [ 90/634]  eta: 0:04:33    time: 0.451951  data: 0.000306  max mem: 4109
+I20250116 17:47:48 2019156 dinov2 helpers.py:102]   [100/634]  eta: 0:04:25    time: 0.452428  data: 0.000293  max mem: 4109
+I20250116 17:47:52 2019156 dinov2 helpers.py:102]   [110/634]  eta: 0:04:18    time: 0.452868  data: 0.000266  max mem: 4109
+I20250116 17:47:57 2019156 dinov2 helpers.py:102]   [120/634]  eta: 0:04:11    time: 0.453251  data: 0.000259  max mem: 4109
+I20250116 17:48:01 2019156 dinov2 helpers.py:102]   [130/634]  eta: 0:04:05    time: 0.453486  data: 0.000259  max mem: 4109
+I20250116 17:48:06 2019156 dinov2 helpers.py:102]   [140/634]  eta: 0:03:59    time: 0.453737  data: 0.000259  max mem: 4109
+I20250116 17:48:10 2019156 dinov2 helpers.py:102]   [150/634]  eta: 0:03:53    time: 0.453957  data: 0.000252  max mem: 4109
+I20250116 17:48:15 2019156 dinov2 helpers.py:102]   [160/634]  eta: 0:03:47    time: 0.454013  data: 0.000294  max mem: 4109
+I20250116 17:48:20 2019156 dinov2 helpers.py:102]   [170/634]  eta: 0:03:42    time: 0.454184  data: 0.000302  max mem: 4109
+I20250116 17:48:24 2019156 dinov2 helpers.py:102]   [180/634]  eta: 0:03:37    time: 0.454456  data: 0.000264  max mem: 4109
+I20250116 17:48:29 2019156 dinov2 helpers.py:102]   [190/634]  eta: 0:03:31    time: 0.454645  data: 0.000294  max mem: 4109
+I20250116 17:48:33 2019156 dinov2 helpers.py:102]   [200/634]  eta: 0:03:26    time: 0.454812  data: 0.000311  max mem: 4109
+I20250116 17:48:38 2019156 dinov2 helpers.py:102]   [210/634]  eta: 0:03:21    time: 0.455012  data: 0.000291  max mem: 4109
+I20250116 17:48:42 2019156 dinov2 helpers.py:102]   [220/634]  eta: 0:03:16    time: 0.455132  data: 0.000283  max mem: 4109
+I20250116 17:48:47 2019156 dinov2 helpers.py:102]   [230/634]  eta: 0:03:11    time: 0.455242  data: 0.000267  max mem: 4109
+I20250116 17:48:51 2019156 dinov2 helpers.py:102]   [240/634]  eta: 0:03:06    time: 0.455353  data: 0.000241  max mem: 4109
+I20250116 17:48:56 2019156 dinov2 helpers.py:102]   [250/634]  eta: 0:03:01    time: 0.455663  data: 0.000241  max mem: 4109
+I20250116 17:49:01 2019156 dinov2 helpers.py:102]   [260/634]  eta: 0:02:56    time: 0.455919  data: 0.000254  max mem: 4109
+I20250116 17:49:05 2019156 dinov2 helpers.py:102]   [270/634]  eta: 0:02:51    time: 0.455890  data: 0.000259  max mem: 4109
+I20250116 17:49:10 2019156 dinov2 helpers.py:102]   [280/634]  eta: 0:02:46    time: 0.455970  data: 0.000244  max mem: 4109
+I20250116 17:49:14 2019156 dinov2 helpers.py:102]   [290/634]  eta: 0:02:41    time: 0.456116  data: 0.000219  max mem: 4109
+I20250116 17:49:19 2019156 dinov2 helpers.py:102]   [300/634]  eta: 0:02:36    time: 0.456183  data: 0.000221  max mem: 4109
+I20250116 17:49:23 2019156 dinov2 helpers.py:102]   [310/634]  eta: 0:02:31    time: 0.456222  data: 0.000225  max mem: 4109
+I20250116 17:49:28 2019156 dinov2 helpers.py:102]   [320/634]  eta: 0:02:27    time: 0.456287  data: 0.000221  max mem: 4109
+I20250116 17:49:32 2019156 dinov2 helpers.py:102]   [330/634]  eta: 0:02:22    time: 0.456273  data: 0.000227  max mem: 4109
+I20250116 17:49:37 2019156 dinov2 helpers.py:102]   [340/634]  eta: 0:02:17    time: 0.456311  data: 0.000235  max mem: 4109
+I20250116 17:49:42 2019156 dinov2 helpers.py:102]   [350/634]  eta: 0:02:12    time: 0.456276  data: 0.000235  max mem: 4109
+I20250116 17:49:46 2019156 dinov2 helpers.py:102]   [360/634]  eta: 0:02:07    time: 0.456228  data: 0.000235  max mem: 4109
+I20250116 17:49:51 2019156 dinov2 helpers.py:102]   [370/634]  eta: 0:02:03    time: 0.456317  data: 0.000234  max mem: 4109
+I20250116 17:49:55 2019156 dinov2 helpers.py:102]   [380/634]  eta: 0:01:58    time: 0.456376  data: 0.000230  max mem: 4109
+I20250116 17:50:00 2019156 dinov2 helpers.py:102]   [390/634]  eta: 0:01:53    time: 0.456334  data: 0.000231  max mem: 4109
+I20250116 17:50:04 2019156 dinov2 helpers.py:102]   [400/634]  eta: 0:01:49    time: 0.456377  data: 0.000227  max mem: 4109
+I20250116 17:50:09 2019156 dinov2 helpers.py:102]   [410/634]  eta: 0:01:44    time: 0.456467  data: 0.000227  max mem: 4109
+I20250116 17:50:14 2019156 dinov2 helpers.py:102]   [420/634]  eta: 0:01:39    time: 0.456431  data: 0.000233  max mem: 4109
+I20250116 17:50:18 2019156 dinov2 helpers.py:102]   [430/634]  eta: 0:01:34    time: 0.456352  data: 0.000236  max mem: 4109
+I20250116 17:50:35 2019156 dinov2 helpers.py:102]   [440/634]  eta: 0:01:35    time: 1.065864  data: 0.677076  max mem: 4109
+I20250116 17:51:00 2019156 dinov2 helpers.py:102]   [450/634]  eta: 0:01:38    time: 2.071754  data: 1.906386  max mem: 4109
+I20250116 17:51:04 2019156 dinov2 helpers.py:102]   [460/634]  eta: 0:01:32    time: 1.444804  data: 1.247592  max mem: 4109
+I20250116 17:51:34 2019156 dinov2 helpers.py:102]   [470/634]  eta: 0:01:36    time: 1.723101  data: 1.481199  max mem: 4109
+I20250116 17:51:47 2019156 dinov2 helpers.py:102]   [480/634]  eta: 0:01:32    time: 2.165957  data: 2.038553  max mem: 4109
+I20250116 17:52:06 2019156 dinov2 helpers.py:102]   [490/634]  eta: 0:01:30    time: 1.617629  data: 1.380933  max mem: 4109
+I20250116 17:52:30 2019156 dinov2 helpers.py:102]   [500/634]  eta: 0:01:29    time: 2.167658  data: 1.995269  max mem: 4109
+I20250116 17:52:40 2019156 dinov2 helpers.py:102]   [510/634]  eta: 0:01:23    time: 1.683964  data: 1.542478  max mem: 4109
+I20250116 17:52:57 2019156 dinov2 helpers.py:102]   [520/634]  eta: 0:01:18    time: 1.341135  data: 1.055340  max mem: 4109
+I20250116 17:53:25 2019156 dinov2 helpers.py:102]   [530/634]  eta: 0:01:15    time: 2.269500  data: 2.073349  max mem: 4109
+I20250116 17:53:30 2019156 dinov2 helpers.py:102]   [540/634]  eta: 0:01:08    time: 1.632523  data: 1.396478  max mem: 4109
+I20250116 17:53:34 2019156 dinov2 helpers.py:102]   [550/634]  eta: 0:01:00    time: 0.448444  data: 0.026058  max mem: 4109
+I20250116 17:53:39 2019156 dinov2 helpers.py:102]   [560/634]  eta: 0:00:52    time: 0.449066  data: 0.000368  max mem: 4109
+I20250116 17:53:43 2019156 dinov2 helpers.py:102]   [570/634]  eta: 0:00:45    time: 0.449191  data: 0.000305  max mem: 4109
+I20250116 17:53:48 2019156 dinov2 helpers.py:102]   [580/634]  eta: 0:00:38    time: 0.449915  data: 0.000277  max mem: 4109
+I20250116 17:53:52 2019156 dinov2 helpers.py:102]   [590/634]  eta: 0:00:30    time: 0.450742  data: 0.000244  max mem: 4109
+I20250116 17:54:22 2019156 dinov2 helpers.py:102]   [600/634]  eta: 0:00:25    time: 1.719800  data: 1.489620  max mem: 4109
+I20250116 17:54:36 2019156 dinov2 helpers.py:102]   [610/634]  eta: 0:00:18    time: 2.186906  data: 2.062953  max mem: 4109
+I20250116 17:54:41 2019156 dinov2 helpers.py:102]   [620/634]  eta: 0:00:10    time: 0.917331  data: 0.573702  max mem: 4109
+I20250116 17:54:45 2019156 dinov2 helpers.py:102]   [630/634]  eta: 0:00:02    time: 0.449908  data: 0.000451  max mem: 4109
+I20250116 17:54:47 2019156 dinov2 helpers.py:102]   [633/634]  eta: 0:00:00    time: 0.492253  data: 0.000418  max mem: 4109
+I20250116 17:54:48 2019156 dinov2 helpers.py:130]  Total time: 0:07:50 (0.741395 s / it)
+I20250116 17:54:48 2019156 dinov2 utils.py:141] Features shape: (162127, 1024)
+I20250116 17:54:48 2019156 dinov2 utils.py:142] Labels shape: (162127,)
+I20250116 17:54:48 2019156 dinov2 knn.py:264] Train features created, shape torch.Size([162127, 1024]).
+I20250116 17:54:48 2019156 dinov2 loaders.py:173] sampler: distributed
+I20250116 17:54:48 2019156 dinov2 loaders.py:232] using PyTorch data loader
+I20250116 17:54:48 2019156 dinov2 loaders.py:245] # of batches: 78
+I20250116 17:54:48 2019156 dinov2 knn.py:299] Start the k-NN classification.
+I20250116 17:54:50 2019156 dinov2 helpers.py:102] Test:  [ 0/78]  eta: 0:02:57    time: 2.278798  data: 1.820337  max mem: 4109
+I20250116 17:54:54 2019156 dinov2 helpers.py:102] Test:  [10/78]  eta: 0:00:42    time: 0.621903  data: 0.165757  max mem: 4109
+I20250116 17:54:59 2019156 dinov2 helpers.py:102] Test:  [20/78]  eta: 0:00:31    time: 0.456648  data: 0.000250  max mem: 4109
+I20250116 17:55:04 2019156 dinov2 helpers.py:102] Test:  [30/78]  eta: 0:00:24    time: 0.457414  data: 0.000206  max mem: 4109
+I20250116 17:55:08 2019156 dinov2 helpers.py:102] Test:  [40/78]  eta: 0:00:19    time: 0.458025  data: 0.000211  max mem: 4109
+I20250116 17:55:13 2019156 dinov2 helpers.py:102] Test:  [50/78]  eta: 0:00:13    time: 0.458470  data: 0.000204  max mem: 4109
+I20250116 17:55:17 2019156 dinov2 helpers.py:102] Test:  [60/78]  eta: 0:00:08    time: 0.458798  data: 0.000201  max mem: 4109
+I20250116 17:55:22 2019156 dinov2 helpers.py:102] Test:  [70/78]  eta: 0:00:03    time: 0.459112  data: 0.000195  max mem: 4109
+I20250116 17:55:25 2019156 dinov2 helpers.py:102] Test:  [77/78]  eta: 0:00:00    time: 0.446387  data: 0.000162  max mem: 4109
+I20250116 17:55:25 2019156 dinov2 helpers.py:130] Test: Total time: 0:00:37 (0.478257 s / it)
+I20250116 17:55:25 2019156 dinov2 utils.py:79] Averaged stats: 
+I20250116 17:55:25 2019156 dinov2 knn.py:368] ('full', 10) classifier result: Top1: 79.57
+I20250116 17:55:25 2019156 dinov2 knn.py:368] ('full', 20) classifier result: Top1: 80.31
+I20250116 17:55:25 2019156 dinov2 knn.py:368] ('full', 100) classifier result: Top1: 80.43
+I20250116 17:55:25 2019156 dinov2 knn.py:368] ('full', 200) classifier result: Top1: 80.28

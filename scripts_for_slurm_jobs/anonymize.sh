@@ -1,17 +1,16 @@
 #!/bin/bash
-#SBATCH --job-name anonymize-rvl-cdip-val-mask-out-100
-#SBATCH --output anonymize-rvl-cdip-val-mask-out-100-%j.out
-#SBATCH --partition gpu
-#SBATCH --gpus 1
+#SBATCH --job-name anonymize-rvl-cdip-train-pixelation-100
+#SBATCH --output anonymize-rvl-cdip-train-pixelation-100-%j.out
+#SBATCH --cpus-per-task 4
 #SBATCH --mail-type=END,FAIL
 #SBATCH --mail-user=mc085@hdm-stuttgart.de
 
 # Print some node information
 echo "$(date)"
-echo "Starting RVL-CDIP val set anonymization with mask out (100%) on partition: GPU"
+echo "Starting RVL-CDIP train set anonymization with pixelation (100%) on partition: CPU"
 echo "Running on: $(hostname)"
 echo "Available CPUs: $(taskset -c -p $$) (logical CPU ids)"
-echo "Available GPUs: $(nvidia-smi)"
+# echo "Available GPUs: $(nvidia-smi)"
 
 # Start jupyter lab
 srun --unbuffered enroot start --mount $HOME:$HOME/mounted_home -w paddle bash -c "

@@ -10,7 +10,7 @@ from typing import Any, Callable, List, Optional, TypeVar
 import torch
 from torch.utils.data import Sampler
 
-from .datasets import ImageNet, ImageNet22k, CelebAOriginalTrain, CelebAOriginalVal, CelebAPixelatedTrain, CelebAPixelatedVal, CelebAMaskedTrain, CelebAMaskedVal, RvlCdipOriginalTrain, RvlCdipOriginalVal
+from .datasets import ImageNet, ImageNet22k, CelebAOriginalTrain, CelebAOriginalVal, CelebAPixelatedTrain, CelebAPixelatedVal, CelebAMaskedTrain, CelebAMaskedVal, RvlCdipOriginalTrain, RvlCdipOriginalVal, RvlCdip100MaskedTrain, RvlCdip100MaskedVal, RvlCdip100PixelatedTrain, CelebAPixelatedABTrain, CelebAMaskedABTrain, RvlCdip100PixelatedVal, RvlCdip100PixelatedABTrain, RvlCdip100MaskedABTrain
 from .samplers import EpochSampler, InfiniteSampler, ShardedInfiniteSampler
 
 
@@ -74,6 +74,22 @@ def _parse_dataset_str(dataset_str: str):
         class_ = RvlCdipOriginalTrain
     elif name == "RvlCdipOriginalVal":
         class_ = RvlCdipOriginalVal
+    elif name == "RvlCdip100MaskedTrain":
+        class_ = RvlCdip100MaskedTrain
+    elif name == "CelebAPixelatedABTrain":
+        class_ = CelebAPixelatedABTrain
+    elif name == "RvlCdip100MaskedVal":
+        class_ = RvlCdip100MaskedVal
+    elif name == "RvlCdip100PixelatedTrain":
+        class_ = RvlCdip100PixelatedTrain
+    elif name == "RvlCdip100PixelatedVal":
+        class_ = RvlCdip100PixelatedVal
+    elif name == "CelebAMaskedABTrain":
+        class_ = CelebAMaskedABTrain
+    elif name == "RvlCdip100PixelatedABTrain":
+        class_ = RvlCdip100PixelatedABTrain
+    elif name == "RvlCdip100MaskedABTrain":
+        class_ = RvlCdip100MaskedABTrain
     else:
         raise ValueError(f'Unsupported dataset "{name}"')
 
