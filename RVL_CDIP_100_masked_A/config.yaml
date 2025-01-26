@@ -61,7 +61,7 @@ ibot:
 train:
   batch_size_per_gpu: 12
   dataset_path: RvlCdip100MaskedABTrain
-  output_dir: /home/stud/m/mc085/mounted_home/dinov2/RVL_CDIP_100_masked_A
+  output_dir: /home/stud/m/mc085/mounted_home/dinov2/RVL_CDIP_100_masked_A_2
   saveckp_freq: 20
   seed: 0
   num_workers: 10
