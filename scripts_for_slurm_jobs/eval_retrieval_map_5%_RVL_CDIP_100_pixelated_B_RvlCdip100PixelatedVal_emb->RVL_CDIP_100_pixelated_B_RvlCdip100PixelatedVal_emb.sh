@@ -1,6 +1,6 @@
 #!/bin/bash
-#SBATCH --job-name eval-retrieval-map-5percent-RVL_CDIP_gt_RvlCdipOriginalVal_emb->RVL_CDIP_gt_RvlCdip100MaskedVal_emb
-#SBATCH --output eval-retrieval-map-5percent-RVL_CDIP_gt_RvlCdipOriginalVal_emb->RVL_CDIP_gt_RvlCdip100MaskedVal_emb-%j.out
+#SBATCH --job-name eval-retrieval-map-5percent-RVL_CDIP_100_pixelated_B_RvlCdip100PixelatedVal_emb->RVL_CDIP_100_pixelated_B_RvlCdip100PixelatedVal_emb
+#SBATCH --output eval-retrieval-map-5percent-RVL_CDIP_100_pixelated_B_RvlCdip100PixelatedVal_emb->RVL_CDIP_100_pixelated_B_RvlCdip100PixelatedVal_emb-%j.out
 #SBATCH --partition gpu
 #SBATCH --gpus 1
 #SBATCH --nodelist=tars
@@ -9,7 +9,7 @@
 
 # Print some node information
 echo "$(date)"
-echo "Starting RVL CDIP retrieval MAP evaluation for scenario "Unadapted/Masked" (100%) with Unanonymized Query Image on partition: GPU"
+echo "Starting RVL CDIP retrieval MAP evaluation for scenario "Adaption B/Pixelated" (100%) with Anonymized Query Image on partition: GPU"
 echo "Running on: $(hostname)"
 echo "Available CPUs: $(taskset -c -p $$) (logical CPU ids)"
 echo "Available GPUs: $(nvidia-smi)"
@@ -21,6 +21,6 @@ srun --unbuffered enroot start --mount $HOME:$HOME/mounted_home -w mc085 bash -c
     PYTHONPATH=. python mean_average_precision.py \
     --gt RVL_CDIP \
     --percent 5 \
-    --query RVL_CDIP_gt_RvlCdipOriginalVal_emb.json \
-    --database RVL_CDIP_gt_RvlCdip100MaskedVal_emb.json
+    --query RVL_CDIP_100_pixelated_B_RvlCdip100PixelatedVal_emb.json \
+    --database RVL_CDIP_100_pixelated_B_RvlCdip100PixelatedVal_emb.json
 "

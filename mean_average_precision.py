@@ -17,7 +17,8 @@ class PrecisionCalculator:
 
 class AveragePrecisionCalculator:
     def __init__(self, precision_calculator: PrecisionCalculator):
-        self.precision_calculator = precision_calculator
+        # Not needed anymore.
+        # self.precision_calculator = precision_calculator
         self.hits = []
 
     def calculate_average_precision(self, relevant_documents: List[str], retrieved_documents: List[str]) -> float:
@@ -32,7 +33,7 @@ class AveragePrecisionCalculator:
             precision_at_k = rank / (idx + 1)
             average_precision += precision_at_k
             self.hits.append(idx + 1)
-
+ 
             found_relevant_count += 1
             if found_relevant_count == len(relevant_documents):
                 break
