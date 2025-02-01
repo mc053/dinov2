@@ -22,7 +22,7 @@ def test_extract_retrieved_similarities():
 
     retrieved_documents_1 = ['1.jpg', '2.jpg', '3.jpg', '4.jpg']
     retrieved_documents_2 = ['1.jpg', '3.jpg', '2.jpg', '4.jpg']
-    retrieved_documents_3 = ['4.jpg', '2.jpg', '3.jpg', '1.jpg']
+    retrieved_documents_3 = ['4.jpg', '3.jpg', '2.jpg', '1.jpg']
 
     retrieved_similarities_1 = extract_retrieved_similarities(ground_truth, retrieved_documents_1)
     retrieved_similarities_2 = extract_retrieved_similarities(ground_truth, retrieved_documents_2)
@@ -30,14 +30,22 @@ def test_extract_retrieved_similarities():
 
     assert retrieved_similarities_1 == [1.00, 0.66, 0.65, 0.63], f"Expected [1.00, 0.66, 0.65, 0.63], got {retrieved_similarities_1}"
     assert retrieved_similarities_2 == [1.00, 0.65, 0.66, 0.63], f"Expected [1.00, 0.65, 0.66, 0.63], got {retrieved_similarities_2}"
-    assert retrieved_similarities_3 == [0.63, 0.66, 0.65, 1.00], f"Expected [1.00, 0.66, 0.65, 0.63], got {retrieved_similarities_3}"
+    assert retrieved_similarities_3 == [0.63, 0.65, 0.66, 1.00], f"Expected [0.63, 0.65, 0.66, 1.00], got {retrieved_similarities_3}"
 
 def test_calculate_ndcg():
     wikipedia_example = [3, 2, 3, 0, 1, 2, 3, 2]
+    retrieved_similarities_1 = [1.00, 0.66, 0.65, 0.63] # perfect retrievals
+    retrieved_similarities_2 = [1.00, 0.65, 0.66, 0.63] # slightly worse retrievals
+    retrieved_similarities_3 = [0.63, 0.65, 0.66, 1.00] # worse retrievals
 
     wikipedia_example_ndcg_at_6 = round(calculate_ndcg(wikipedia_example, k=6), 3)
+    retrieved_similarities_1_ndcg = calculate_ndcg(retrieved_similarities_1)
+    retrieved_similarities_2_ndcg = calculate_ndcg(retrieved_similarities_2)
+    retrieved_similarities_3_ndcg = calculate_ndcg(retrieved_similarities_3)
+    print(f"retrieved_similarities_1_ndcg: {retrieved_similarities_1_ndcg}, retrieved_similarities_2_ndcg: {retrieved_similarities_2_ndcg}, retrieved_similarities_3_ndcg: {retrieved_similarities_3_ndcg}")
 
     assert wikipedia_example_ndcg_at_6 == 0.785, f"Expected 0.785, got {wikipedia_example_ndcg_at_6}"
+    assert retrieved_similarities_1_ndcg > retrieved_similarities_2_ndcg > retrieved_similarities_3_ndcg
 
 test_extract_retrieved_similarities()
 test_calculate_ndcg()
