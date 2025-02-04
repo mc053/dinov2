@@ -128,7 +128,7 @@ if __name__ == '__main__':
         
         retrieved_similarities = extract_retrieved_similarities(ground_truth, retrieved_documents)
 
-        for k in range(max_k // 10, max_k + 1, max_k // 10):
+        for k in np.linspace(max_k // 10, max_k, num=10, dtype=int):
             ndcg_at_k = calculate_ndcg(retrieved_similarities, k=k)
             if k not in ndcgs_at_k:
                 ndcgs_at_k[k] = []
