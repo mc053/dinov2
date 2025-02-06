@@ -1,13 +1,13 @@
 #!/bin/bash
-#SBATCH --job-name anonymize-rvl-cdip-train-pixelation-100
-#SBATCH --output anonymize-rvl-cdip-train-pixelation-100-%j.out
-#SBATCH --cpus-per-task 4
+#SBATCH --job-name anonymize-celeba-val-blurred
+#SBATCH --output anonymize-celeba-val-blurred-%j.out
+#SBATCH --cpus-per-task 1
 #SBATCH --mail-type=END,FAIL
 #SBATCH --mail-user=mc085@hdm-stuttgart.de
 
 # Print some node information
 echo "$(date)"
-echo "Starting RVL-CDIP train set anonymization with pixelation (100%) on partition: CPU"
+echo "Starting CelebA val set anonymization with gaussian blurring on partition: CPU"
 echo "Running on: $(hostname)"
 echo "Available CPUs: $(taskset -c -p $$) (logical CPU ids)"
 # echo "Available GPUs: $(nvidia-smi)"

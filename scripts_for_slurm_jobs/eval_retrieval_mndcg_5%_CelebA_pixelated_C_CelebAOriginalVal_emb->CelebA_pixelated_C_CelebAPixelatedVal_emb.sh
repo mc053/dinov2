@@ -1,8 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name eval-retrieval-mndcg-5percent-CelebA_pixelated_C_CelebAOriginalVal_emb->CelebA_pixelated_C_CelebAPixelatedVal_emb
 #SBATCH --output eval-retrieval-mndcg-5percent-CelebA_pixelated_C_CelebAOriginalVal_emb->CelebA_pixelated_C_CelebAPixelatedVal_emb-%j.out
-#SBATCH --partition gpu
-#SBATCH --gpus 1
+#SBATCH --cpus-per-task 4
 #SBATCH --mail-type=END,FAIL
 #SBATCH --mail-user=mc085@hdm-stuttgart.de
 

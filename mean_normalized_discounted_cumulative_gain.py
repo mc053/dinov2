@@ -1,4 +1,5 @@
 # See https://en.wikipedia.org/wiki/Discounted_cumulative_gain
+import gc
 import argparse
 import pickle
 import json
@@ -113,6 +114,9 @@ if __name__ == '__main__':
                 current_rvl_cdip_file_index += 1  # load next chunk
                 if current_rvl_cdip_file_index >= len(rvl_cdip_files):
                     raise ValueError(f"Query {query_embedding_name} not found in RVL_CDIP Ground Truth files.")
+                # https://stackoverflow.com/questions/1316767/how-can-i-explicitly-free-memory-in-python
+                del gt_retrievals
+                gc.collect()
                 gt_retrievals = load_rvl_cdip_gt_retrievals(current_rvl_cdip_file_index)
             else:
                 raise ValueError(f"Query {query_embedding_name} not found in ground truth retrievals.")
