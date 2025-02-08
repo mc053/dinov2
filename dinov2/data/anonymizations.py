@@ -13,7 +13,7 @@ class CelebAAnonymizer:
     def anonymize_celeba_imgs(self, input_path: str, output_path: str, bbox_csv_path: str) -> None:
         os.makedirs(output_path, exist_ok=True)
         bbox_data = self._load_bboxes(bbox_csv_path)
-        images = [f for f in os.listdir(input_path) if f.lower().endswith(('.jpg', '.png'))][:100] # for testing with first 100 images.
+        images = [f for f in os.listdir(input_path) if f.lower().endswith(('.jpg', '.png'))] # [:100] for testing with first 100 images.
 
         for image_name in tqdm(images, desc="Anonymizing images"):
             input_image_path = os.path.join(input_path, image_name)
@@ -158,8 +158,8 @@ class RVLCDIPAnonymizerPixelation(RvlCdipAnonymizer):
         return Image.fromarray(anonymized_array.astype(np.uint8))
 
 if __name__ == "__main__":
-    input_path = "/home/stud/m/mc085/mounted_home/dinov2/dinov2/data/datasets/CelebA/CelebA_original/val"
-    output_path = "/home/stud/m/mc085/mounted_home/dinov2/dinov2/data/datasets/CelebA/CelebA_blurred/val"
+    input_path = "/home/stud/m/mc085/mounted_home/dinov2/dinov2/data/datasets/CelebA/CelebA_original/train"
+    output_path = "/home/stud/m/mc085/mounted_home/dinov2/dinov2/data/datasets/CelebA/CelebA_blurred/train"
     bbox_csv_path = "/home/stud/m/mc085/mounted_home/dinov2/dinov2/data/datasets/CelebA/list_bbox_celeba_mtcnn.csv"
 # 
     anonymizer = CelebAAnonymizerGaussianBlur()
