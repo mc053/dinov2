@@ -1,15 +1,15 @@
 #!/bin/bash
-#SBATCH --job-name eval-retrieval-mndcg-5percent-CelebA_gt_CelebAMaskedVal_emb->CelebA_gt_CelebAMaskedVal_emb
-#SBATCH --output eval-retrieval-mndcg-5percent-CelebA_gt_CelebAMaskedVal_emb->CelebA_gt_CelebAMaskedVal_emb-%j.out
+#SBATCH --job-name eval-retrieval-mndcg-5percent-RVL_CDIP_100_masked_A_RvlCdipOriginalVal_emb->RVL_CDIP_100_masked_A_RvlCdip100MaskedVal_emb
+#SBATCH --output eval-retrieval-mndcg-5percent-RVL_CDIP_100_masked_A_RvlCdipOriginalVal_emb->RVL_CDIP_100_masked_A_RvlCdip100MaskedVal_emb-%j.out
 #SBATCH --partition gpu
 #SBATCH --gpus 1
-#SBATCH --nodelist=ada
+#SBATCH --nodelist=hal9k
 #SBATCH --mail-type=END,FAIL
 #SBATCH --mail-user=mc085@hdm-stuttgart.de
 
 # Print some node information
 echo "$(date)"
-echo "Starting CelebA retrieval mnDCG evaluation for scenario "Unadapted/Masked with Anonymized Query Image" on partition: GPU"
+echo "Starting RVL CDIP retrieval mnDCG evaluation for scenario "Adaption A/Masked" (100%) with Unanonymized Query Image on partition: GPU"
 echo "Running on: $(hostname)"
 echo "Available CPUs: $(taskset -c -p $$) (logical CPU ids)"
 echo "Available GPUs: $(nvidia-smi)"
@@ -19,8 +19,8 @@ srun --unbuffered enroot start --mount $HOME:$HOME/mounted_home -w mc085 bash -c
     source /home/stud/m/mc085/mounted_home/pia11_clean/bin/activate &&
     cd /home/stud/m/mc085/mounted_home/dinov2 &&
     PYTHONPATH=. python mean_normalized_discounted_cumulative_gain.py \
-    --gt CelebA_retrieval_ground_truths.pkl \
+    --gt RVL_CDIP \
     --percent 5 \
-    --query CelebA_gt_CelebAMaskedVal_emb.json \
-    --database CelebA_gt_CelebAMaskedVal_emb.json
+    --query RVL_CDIP_100_masked_A_RvlCdipOriginalVal_emb.json \
+    --database RVL_CDIP_100_masked_A_RvlCdip100MaskedVal_emb.json
 "
