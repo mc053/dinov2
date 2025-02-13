@@ -10,7 +10,7 @@ from typing import Any, Callable, List, Optional, TypeVar
 import torch
 from torch.utils.data import Sampler
 
-from .datasets import ImageNet, ImageNet22k, CelebAOriginalTrain, CelebAOriginalVal, CelebAPixelatedTrain, CelebAPixelatedVal, CelebAMaskedTrain, CelebAMaskedVal, RvlCdipOriginalTrain, RvlCdipOriginalVal, RvlCdip100MaskedTrain, RvlCdip100MaskedVal, RvlCdip100PixelatedTrain, CelebAPixelatedABTrain, CelebAMaskedABTrain, RvlCdip100PixelatedVal, RvlCdip100PixelatedABTrain, RvlCdip100MaskedABTrain
+from .datasets import ImageNet, ImageNet22k, CelebAOriginalTrain, CelebAOriginalVal, CelebAPixelatedTrain, CelebAPixelatedVal, CelebAMaskedTrain, CelebAMaskedVal, RvlCdipOriginalTrain, RvlCdipOriginalVal, RvlCdip100MaskedTrain, RvlCdip100MaskedVal, RvlCdip100PixelatedTrain, CelebAPixelatedABTrain, CelebAMaskedABTrain, RvlCdip100PixelatedVal, RvlCdip100PixelatedABTrain, RvlCdip100MaskedABTrain, RvlCdip50MaskedTrain, RvlCdip50MaskedVal, RvlCdip50MaskedABTrain, CelebABlurredTrain, CelebABlurredVal, CelebABlurredABTrain, RvlCdip50PixelatedTrain, RvlCdip50PixelatedVal, RvlCdip50PixelatedABTrain
 from .samplers import EpochSampler, InfiniteSampler, ShardedInfiniteSampler
 
 
@@ -90,6 +90,24 @@ def _parse_dataset_str(dataset_str: str):
         class_ = RvlCdip100PixelatedABTrain
     elif name == "RvlCdip100MaskedABTrain":
         class_ = RvlCdip100MaskedABTrain
+    elif name == "RvlCdip50MaskedTrain":
+        class_ = RvlCdip50MaskedTrain
+    elif name == "RvlCdip50MaskedVal":
+        class_ = RvlCdip50MaskedVal
+    elif name == "RvlCdip50MaskedABTrain":
+        class_ = RvlCdip50MaskedABTrain
+    elif name == "CelebABlurredTrain":
+        class_ = CelebABlurredTrain
+    elif name == "CelebABlurredVal":
+        class_ = CelebABlurredVal
+    elif name == "CelebABlurredABTrain":
+        class_ = CelebABlurredABTrain
+    elif name == "RvlCdip50PixelatedTrain":
+        class_ = RvlCdip50PixelatedTrain
+    elif name == "RvlCdip50PixelatedVal":
+        class_ = RvlCdip50PixelatedVal
+    elif name == "RvlCdip50PixelatedABTrain":
+        class_ = RvlCdip50PixelatedABTrain
     else:
         raise ValueError(f'Unsupported dataset "{name}"')
 

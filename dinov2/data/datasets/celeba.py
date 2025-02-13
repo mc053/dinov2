@@ -112,6 +112,18 @@ class CelebAMaskedVal(CelebAOriginalTrain):
         super().__init__(root=root, transforms=transforms, transform=transform,
         target_transform=target_transform, image_dir_name=image_dir_name)
 
+class CelebABlurredTrain(CelebAOriginalTrain):
+    def __init__(self, root: str = os.path.dirname(os.path.abspath(__file__)), transforms=None,
+    transform=None, target_transform=None, image_dir_name="CelebA_blurred/train"):
+        super().__init__(root=root, transforms=transforms, transform=transform,
+        target_transform=target_transform, image_dir_name=image_dir_name)
+
+class CelebABlurredVal(CelebAOriginalTrain):
+    def __init__(self, root: str = os.path.dirname(os.path.abspath(__file__)), transforms=None,
+    transform=None, target_transform=None, image_dir_name="CelebA_blurred/val"):
+        super().__init__(root=root, transforms=transforms, transform=transform,
+        target_transform=target_transform, image_dir_name=image_dir_name)
+
 class CelebAABTrain(ExtendedVisionDataset):
     def __init__(self, root: str = os.path.dirname(os.path.abspath(__file__)), transforms=None,
                  transform=None, target_transform=None, 
@@ -198,7 +210,10 @@ class CelebAMaskedABTrain(CelebAABTrain):
     def __init__(self, root: str = os.path.dirname(os.path.abspath(__file__)), transforms=None,
                  transform=None, target_transform=None):
         super().__init__(root=root, transforms=transforms, transform=transform, target_transform=target_transform,
-                         anonymized_dir_name="CelebA_masked/train")                         
+                         anonymized_dir_name="CelebA_masked/train")
 
-## class CelebABlurred(CelebAOriginal) ...
-## class CelebADistorted(CelebAOriginal) ...
+class CelebABlurredABTrain(CelebAABTrain):
+    def __init__(self, root: str = os.path.dirname(os.path.abspath(__file__)), transforms=None,
+                 transform=None, target_transform=None):
+        super().__init__(root=root, transforms=transforms, transform=transform, target_transform=target_transform,
+                         anonymized_dir_name="CelebA_blurred/train")

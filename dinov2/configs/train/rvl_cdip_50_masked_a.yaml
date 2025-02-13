@@ -1,0 +1,7 @@
+train:
+  dataset_path: RvlCdip50MaskedABTrain
+  a_b_training: A # original global and anonymized local crops
+  batch_size_per_gpu: 12
+student:
+  block_chunks: 4
+  in_chans: 3
