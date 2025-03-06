@@ -10,7 +10,7 @@ from typing import Any, Callable, List, Optional, TypeVar
 import torch
 from torch.utils.data import Sampler
 
-from .datasets import ImageNet, ImageNet22k, CelebAOriginalTrain, CelebAOriginalVal, CelebAPixelatedTrain, CelebAPixelatedVal, CelebAMaskedTrain, CelebAMaskedVal, RvlCdipOriginalTrain, RvlCdipOriginalVal, RvlCdip100MaskedTrain, RvlCdip100MaskedVal, RvlCdip100PixelatedTrain, CelebAPixelatedABTrain, CelebAMaskedABTrain, RvlCdip100PixelatedVal, RvlCdip100PixelatedABTrain, RvlCdip100MaskedABTrain, RvlCdip50MaskedTrain, RvlCdip50MaskedVal, RvlCdip50MaskedABTrain, CelebABlurredTrain, CelebABlurredVal, CelebABlurredABTrain, RvlCdip50PixelatedTrain, RvlCdip50PixelatedVal, RvlCdip50PixelatedABTrain, RvlCdip100BlurredTrain, RvlCdip100BlurredABTrain, RvlCdip100BlurredVal
+from .datasets import ImageNet, ImageNet22k, CelebAOriginalTrain, CelebAOriginalVal, CelebAPixelatedTrain, CelebAPixelatedVal, CelebAMaskedTrain, CelebAMaskedVal, RvlCdipOriginalTrain, RvlCdipOriginalVal, RvlCdip100MaskedTrain, RvlCdip100MaskedVal, RvlCdip100PixelatedTrain, CelebAPixelatedABTrain, CelebAMaskedABTrain, RvlCdip100PixelatedVal, RvlCdip100PixelatedABTrain, RvlCdip100MaskedABTrain, RvlCdip50MaskedTrain, RvlCdip50MaskedVal, RvlCdip50MaskedABTrain, CelebABlurredTrain, CelebABlurredVal, CelebABlurredABTrain, RvlCdip50PixelatedTrain, RvlCdip50PixelatedVal, RvlCdip50PixelatedABTrain, RvlCdip100BlurredTrain, RvlCdip100BlurredABTrain, RvlCdip100BlurredVal, RvlCdip50BlurredTrain, RvlCdip50BlurredABTrain, RvlCdip50BlurredVal
 from .samplers import EpochSampler, InfiniteSampler, ShardedInfiniteSampler
 
 
@@ -114,6 +114,12 @@ def _parse_dataset_str(dataset_str: str):
         class_ = RvlCdip100BlurredABTrain
     elif name == "RvlCdip100BlurredVal":
         class_ = RvlCdip100BlurredVal
+    elif name == "RvlCdip50BlurredTrain":
+        class_ = RvlCdip50BlurredTrain
+    elif name == "RvlCdip50BlurredABTrain":
+        class_ = RvlCdip50BlurredABTrain
+    elif name == "RvlCdip50BlurredVal":
+        class_ = RvlCdip50BlurredVal
     else:
         raise ValueError(f'Unsupported dataset "{name}"')
 

@@ -1,6 +1,6 @@
 #!/bin/bash
-#SBATCH --job-name reduce-bboxes-rvl-cdip-val-50-25
-#SBATCH --output reduce-bboxes-rvl-cdip-val-50-25-%j.out
+#SBATCH --job-name reduce-bboxes-rvl-cdip-train-50-25
+#SBATCH --output reduce-bboxes-rvl-cdip-train-50-25-%j.out
 #SBATCH --partition gpu
 #SBATCH --gpus 1
 #SBATCH --mail-type=END,FAIL
@@ -8,7 +8,7 @@
 
 # Print some node information
 echo "$(date)"
-echo "Starting RVL-CDIP BBoxes Reduction from 50% to 25% (val set) on partition: GPU"
+echo "Starting RVL-CDIP BBoxes Reduction from 50% to 25% (train set) on partition: GPU"
 echo "Running on: $(hostname)"
 echo "Available CPUs: $(taskset -c -p $$) (logical CPU ids)"
 echo "Available GPUs: $(nvidia-smi)"
