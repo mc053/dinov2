@@ -10,7 +10,7 @@ from typing import Any, Callable, List, Optional, TypeVar
 import torch
 from torch.utils.data import Sampler
 
-from .datasets import ImageNet, ImageNet22k, CelebAOriginalTrain, CelebAOriginalVal, CelebAPixelatedTrain, CelebAPixelatedVal, CelebAMaskedTrain, CelebAMaskedVal, RvlCdipOriginalTrain, RvlCdipOriginalVal, RvlCdip100MaskedTrain, RvlCdip100MaskedVal, RvlCdip100PixelatedTrain, CelebAPixelatedABTrain, CelebAMaskedABTrain, RvlCdip100PixelatedVal, RvlCdip100PixelatedABTrain, RvlCdip100MaskedABTrain, RvlCdip50MaskedTrain, RvlCdip50MaskedVal, RvlCdip50MaskedABTrain, CelebABlurredTrain, CelebABlurredVal, CelebABlurredABTrain, RvlCdip50PixelatedTrain, RvlCdip50PixelatedVal, RvlCdip50PixelatedABTrain, RvlCdip100BlurredTrain, RvlCdip100BlurredABTrain, RvlCdip100BlurredVal, RvlCdip50BlurredTrain, RvlCdip50BlurredABTrain, RvlCdip50BlurredVal, RvlCdip25BlurredTrain, RvlCdip25BlurredABTrain, RvlCdip25PixelatedTrain, RvlCdip25PixelatedABTrain, RvlCdip25MaskedTrain, RvlCdip25MaskedABTrain, RvlCdip25BlurredVal, RvlCdip25PixelatedVal, RvlCdip25MaskedVal
+from .datasets import ImageNet, ImageNet22k, CelebAOriginalTrain, CelebAOriginalVal, CelebAPixelatedTrain, CelebAPixelatedVal, CelebAMaskedTrain, CelebAMaskedVal, RvlCdipOriginalTrain, RvlCdipOriginalVal, RvlCdip100MaskedTrain, RvlCdip100MaskedVal, RvlCdip100PixelatedTrain, CelebAPixelatedABTrain, CelebAMaskedABTrain, RvlCdip100PixelatedVal, RvlCdip100PixelatedABTrain, RvlCdip100MaskedABTrain, RvlCdip50MaskedTrain, RvlCdip50MaskedVal, RvlCdip50MaskedABTrain, CelebABlurredTrain, CelebABlurredVal, CelebABlurredABTrain, RvlCdip50PixelatedTrain, RvlCdip50PixelatedVal, RvlCdip50PixelatedABTrain, RvlCdip100BlurredTrain, RvlCdip100BlurredABTrain, RvlCdip100BlurredVal, RvlCdip50BlurredTrain, RvlCdip50BlurredABTrain, RvlCdip50BlurredVal, RvlCdip25BlurredTrain, RvlCdip25BlurredABTrain, RvlCdip25PixelatedTrain, RvlCdip25PixelatedABTrain, RvlCdip25MaskedTrain, RvlCdip25MaskedABTrain, RvlCdip25BlurredVal, RvlCdip25PixelatedVal, RvlCdip25MaskedVal, RvlCdip75PixelatedABTrain, RvlCdip75PixelatedTrain, RvlCdip75BlurredABTrain, RvlCdip75BlurredTrain
 from .samplers import EpochSampler, InfiniteSampler, ShardedInfiniteSampler
 
 
@@ -138,6 +138,14 @@ def _parse_dataset_str(dataset_str: str):
         class_ = RvlCdip25PixelatedVal
     elif name == "RvlCdip25MaskedVal":
         class_ = RvlCdip25MaskedVal
+    elif name == "RvlCdip75PixelatedABTrain":
+        class_ = RvlCdip75PixelatedABTrain
+    elif name == "RvlCdip75PixelatedTrain":
+        class_ = RvlCdip75PixelatedTrain
+    elif name == "RvlCdip75BlurredABTrain":
+        class_ = RvlCdip75BlurredABTrain
+    elif name == "RvlCdip75BlurredTrain":
+        class_ = RvlCdip75BlurredTrain
     else:
         raise ValueError(f'Unsupported dataset "{name}"')
 

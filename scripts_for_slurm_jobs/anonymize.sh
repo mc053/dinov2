@@ -1,6 +1,6 @@
 #!/bin/bash
-#SBATCH --job-name anonymize-rvl-cdip-val-pixelation-25
-#SBATCH --output anonymize-rvl-cdip-val-pixelation-25-%j.out
+#SBATCH --job-name anonymize-rvl-cdip-train-masking-75
+#SBATCH --output anonymize-rvl-cdip-train-masking-75-%j.out
 #SBATCH --partition gpu
 #SBATCH --gpus 1
 #SBATCH --mail-type=END,FAIL
@@ -8,7 +8,7 @@
 
 # Print some node information
 echo "$(date)"
-echo "Starting RVL-CDIP val set anonymization with pixelation (25%) on partition: CPU"
+echo "Starting RVL-CDIP train set anonymization with masking (75%) on partition: CPU"
 echo "Running on: $(hostname)"
 echo "Available CPUs: $(taskset -c -p $$) (logical CPU ids)"
 # echo "Available GPUs: $(nvidia-smi)"

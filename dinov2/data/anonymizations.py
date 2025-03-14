@@ -176,11 +176,11 @@ if __name__ == "__main__":
 #     print("Starting anonymization...")
 #     anonymizer.anonymize_celeba_imgs(input_path, output_path, bbox_csv_path)
 #     print(f"Anonymization completed. Anonymized images saved in {output_path}")
-    input_path = "/home/stud/m/mc085/mounted_home/dinov2/dinov2/data/datasets/RVL-CDIP/RVL-CDIP_original/val"
-    output_path = "/home/stud/m/mc085/mounted_home/dinov2/dinov2/data/datasets/RVL-CDIP/RVL-CDIP_25_pixelated/val"
-    bbox_json_path = "/home/stud/m/mc085/mounted_home/dinov2/dinov2/data/datasets/RVL-CDIP/list_bboxes_rvl_cdip_val_25_paddle_ocr.json"
+    input_path = "/home/stud/m/mc085/mounted_home/dinov2/dinov2/data/datasets/RVL-CDIP/RVL-CDIP_original/train"
+    output_path = "/home/stud/m/mc085/mounted_home/dinov2/dinov2/data/datasets/RVL-CDIP/RVL-CDIP_75_masked/train"
+    bbox_json_path = "/home/stud/m/mc085/mounted_home/dinov2/dinov2/data/datasets/RVL-CDIP/list_bboxes_rvl_cdip_train_75_paddle_ocr.json"
 
-    anonymizer = RvlCdipAnonymizerPixelation()
+    anonymizer = RvlCdipAnonymizerMaskOut()
 
     print("Starting anonymization...")
     anonymizer.anonymize_rvlcdip_imgs(input_path, output_path, bbox_json_path)
