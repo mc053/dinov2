@@ -185,6 +185,30 @@ class RvlCdip75BlurredTrain(RvlCdipOriginalTrain):
         super().__init__(root=root, transforms=transforms, transform=transform,
         target_transform=target_transform, image_dir_name=image_dir_name)
 
+class RvlCdip75MaskedTrain(RvlCdipOriginalTrain):
+    def __init__(self, root: str = os.path.dirname(os.path.abspath(__file__)), transforms=None,
+    transform=None, target_transform=None, image_dir_name="RVL-CDIP_75_masked/train"):
+        super().__init__(root=root, transforms=transforms, transform=transform,
+        target_transform=target_transform, image_dir_name=image_dir_name)
+
+class RvlCdip75MaskedVal(RvlCdipOriginalTrain):
+    def __init__(self, root: str = os.path.dirname(os.path.abspath(__file__)), transforms=None,
+    transform=None, target_transform=None, image_dir_name="RVL-CDIP_75_masked/val"):
+        super().__init__(root=root, transforms=transforms, transform=transform,
+        target_transform=target_transform, image_dir_name=image_dir_name)
+
+class RvlCdip75PixelatedVal(RvlCdipOriginalTrain):
+    def __init__(self, root: str = os.path.dirname(os.path.abspath(__file__)), transforms=None,
+    transform=None, target_transform=None, image_dir_name="RVL-CDIP_75_pixelated/val"):
+        super().__init__(root=root, transforms=transforms, transform=transform,
+        target_transform=target_transform, image_dir_name=image_dir_name)
+
+class RvlCdip75BlurredVal(RvlCdipOriginalTrain):
+    def __init__(self, root: str = os.path.dirname(os.path.abspath(__file__)), transforms=None,
+    transform=None, target_transform=None, image_dir_name="RVL-CDIP_75_blurred/val"):
+        super().__init__(root=root, transforms=transforms, transform=transform,
+        target_transform=target_transform, image_dir_name=image_dir_name)
+
 class RvlCdipABTrain(ExtendedVisionDataset):
     def __init__(self, root: str = os.path.dirname(os.path.abspath(__file__)), transforms=None,
                  transform=None, target_transform=None,
@@ -311,3 +335,9 @@ class RvlCdip75BlurredABTrain(RvlCdipABTrain):
                  transform=None, target_transform=None):
         super().__init__(root=root, transforms=transforms, transform=transform, target_transform=target_transform,
                          anonymized_dir_name="RVL-CDIP_75_blurred/train")
+
+class RvlCdip75MaskedABTrain(RvlCdipABTrain):
+    def __init__(self, root: str = os.path.dirname(os.path.abspath(__file__)), transforms=None,
+                 transform=None, target_transform=None):
+        super().__init__(root=root, transforms=transforms, transform=transform, target_transform=target_transform,
+                         anonymized_dir_name="RVL-CDIP_75_masked/train")
