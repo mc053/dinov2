@@ -1,13 +1,15 @@
 #!/bin/bash
-#SBATCH --job-name eval-retrieval-mndcg-5percent-RVL_CDIP_75_blurred_A_RvlCdipOriginalVal_emb->RVL_CDIP_75_blurred_A_RvlCdip75BlurredVal_emb
-#SBATCH --output eval-retrieval-mndcg-5percent-RVL_CDIP_75_blurred_A_RvlCdipOriginalVal_emb->RVL_CDIP_75_blurred_A_RvlCdip75BlurredVal_emb-%j.out
-#SBATCH --cpus-per-task 4
+#SBATCH --job-name eval-retrieval-mndcg-5percent-RVL_CDIP_gt_RvlCdip75MaskedVal_emb->RVL_CDIP_gt_RvlCdip75MaskedVal_emb
+#SBATCH --output eval-retrieval-mndcg-5percent-RVL_CDIP_gt_RvlCdip75MaskedVal_emb->RVL_CDIP_gt_RvlCdip75MaskedVal_emb-%j.out
+#SBATCH --partition gpu
+#SBATCH --gpus 1
+#SBATCH --nodelist=ada
 #SBATCH --mail-type=END,FAIL
 #SBATCH --mail-user=mc085@hdm-stuttgart.de
 
 # Print some node information
 echo "$(date)"
-echo "Starting RVL CDIP retrieval mnDCG evaluation for scenario "Adaption A/Blurred" (75%) with Unanonymized Query Image on partition: CPU"
+echo "Starting RVL CDIP retrieval mnDCG evaluation for scenario "Unadapted/Masked" (75%) with Anonymized Query Image on partition: CPU"
 echo "Running on: $(hostname)"
 echo "Available CPUs: $(taskset -c -p $$) (logical CPU ids)"
 echo "Available GPUs: $(nvidia-smi)"
@@ -19,6 +21,6 @@ srun --unbuffered enroot start --mount $HOME:$HOME/mounted_home -w mc085 bash -c
     PYTHONPATH=. python mean_normalized_discounted_cumulative_gain.py \
     --gt RVL_CDIP \
     --percent 5 \
-    --query RVL_CDIP_75_blurred_A_RvlCdipOriginalVal_emb.json \
-    --database RVL_CDIP_75_blurred_A_RvlCdip75BlurredVal_emb.json
+    --query RVL_CDIP_gt_RvlCdip75MaskedVal_emb.json \
+    --database RVL_CDIP_gt_RvlCdip75MaskedVal_emb.json
 "
