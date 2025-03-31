@@ -1,13 +1,14 @@
 import csv
 import os
 import json
+import cv2
 import numpy as np
 from enum import Enum
 from PIL import Image
 from tqdm import tqdm
 
 # Adjust main method before starting job.
-# The different anonymization techniques could be refactored, e.g. as Strategy Pattern. But for the time being, it's fine.
+# Could be refactored by using Strategy Pattern. But for the time being, it's fine.
 
 class CelebAAnonymizer:
     def anonymize_celeba_imgs(self, input_path: str, output_path: str, bbox_csv_path: str) -> None:
@@ -84,11 +85,20 @@ class CelebAAnonymizerPixelation(CelebAAnonymizer):
         
         return Image.fromarray(anonymized_array.astype(np.uint8))
 
+# https://docs.opencv.org/4.x/d4/d86/group__imgproc__filter.html#gae8bdcd9154ed5ca3cbc1766d960f45c1
+class CelebAAnonymizerGaussianBlur(CelebAAnonymizer):
+    def _apply_anonymization_for_mask(self, image: Image.Image, mask: np.ndarray, sigma=8):
+        img_array = np.array(image)
+        blurred_image = cv2.GaussianBlur(img_array, (0, 0), sigmaX=sigma)
+        anonymized_array = img_array * (1 - mask) + blurred_image * mask
+
+        return Image.fromarray(anonymized_array.astype(np.uint8))
+
 class RvlCdipAnonymizer:
     def anonymize_rvlcdip_imgs(self, input_path: str, output_path: str, bbox_json_path: str) -> None:
         os.makedirs(output_path, exist_ok=True)
         bbox_data = self._load_bboxes(bbox_json_path)
-        images = [f for f in os.listdir(input_path) if f.lower().endswith(('.jpg', '.png'))]    # [:100] for testing with first 100 images.
+        images = [f for f in os.listdir(input_path) if f.lower().endswith(('.jpg', '.png'))] # [:100] for testing with first 100 images.
 
         for image_name in tqdm(images, desc="Anonymizing images"):
             input_image_path = os.path.join(input_path, image_name)
@@ -124,14 +134,14 @@ class RvlCdipAnonymizer:
     def _apply_anonymization_for_mask(self, image: Image.Image, mask: np.ndarray) -> Image.Image:
         raise NotImplementedError
 
-class RVLCDIPAnonymizerMaskOut(RvlCdipAnonymizer):
+class RvlCdipAnonymizerMaskOut(RvlCdipAnonymizer):
     def _apply_anonymization_for_mask(self, image: Image.Image, mask: np.ndarray) -> Image.Image:
         img_array = np.array(image)
         anonymized_array = img_array * (1 - mask)
 
         return Image.fromarray(anonymized_array.astype(np.uint8))
 
-class RVLCDIPAnonymizerPixelation(RvlCdipAnonymizer):
+class RvlCdipAnonymizerPixelation(RvlCdipAnonymizer):
     def _apply_anonymization_for_mask(self, image: Image.Image, mask: np.ndarray, pixel_ratio=0.1) -> Image.Image:
         width, height = image.size
     
@@ -148,26 +158,32 @@ class RVLCDIPAnonymizerPixelation(RvlCdipAnonymizer):
         
         return Image.fromarray(anonymized_array.astype(np.uint8))
 
+class RvlCdipAnonymizerGaussianBlur(RvlCdipAnonymizer):
+    def _apply_anonymization_for_mask(self, image: Image.Image, mask: np.ndarray, sigma=8):
+        img_array = np.array(image)
+        blurred_image = cv2.GaussianBlur(img_array, (0, 0), sigmaX=sigma)
+        anonymized_array = img_array * (1 - mask) + blurred_image * mask
+
+        return Image.fromarray(anonymized_array.astype(np.uint8))
+
 if __name__ == "__main__":
-    # input_path = "/home/stud/m/mc085/mounted_home/dinov2/dinov2/data/datasets/CelebA/CelebA_original"
-    # output_path = "/home/stud/m/mc085/mounted_home/dinov2/dinov2/data/datasets/CelebA/CelebA_pixelated"
-    # bbox_csv_path = "/home/stud/m/mc085/mounted_home/dinov2/dinov2/data/datasets/CelebA/list_bbox_celeba_mtcnn.csv"
-# 
-    # anonymizer = CelebAAnonymizerPixelation()
-# 
-    # print("Starting anonymization...")
-    # anonymizer.anonymize_celeba_imgs(input_path, output_path, bbox_csv_path)
-    # print(f"Anonymization completed. Anonymized images saved in {output_path}")
+#     input_path = "/home/stud/m/mc085/mounted_home/dinov2/dinov2/data/datasets/CelebA/CelebA_original/train"
+#     output_path = "/home/stud/m/mc085/mounted_home/dinov2/dinov2/data/datasets/CelebA/CelebA_blurred/train"
+#     bbox_csv_path = "/home/stud/m/mc085/mounted_home/dinov2/dinov2/data/datasets/CelebA/list_bbox_celeba_mtcnn.csv"
+#  
+#     anonymizer = CelebAAnonymizerGaussianBlur()
+#  
+#     print("Starting anonymization...")
+#     anonymizer.anonymize_celeba_imgs(input_path, output_path, bbox_csv_path)
+#     print(f"Anonymization completed. Anonymized images saved in {output_path}")
+    input_path = "/home/stud/m/mc085/mounted_home/dinov2/dinov2/data/datasets/RVL-CDIP/RVL-CDIP_original/val"
+    output_path = "/home/stud/m/mc085/mounted_home/dinov2/dinov2/data/datasets/RVL-CDIP/RVL-CDIP_75_masked/val"
+    bbox_json_path = "/home/stud/m/mc085/mounted_home/dinov2/dinov2/data/datasets/RVL-CDIP/list_bboxes_rvl_cdip_val_75_paddle_ocr.json"
 
-    input_path = "/home/stud/m/mc085/mounted_home/dinov2/dinov2/data/datasets/RVL-CDIP/RVL-CDIP_original/train"
-    output_path = "/home/stud/m/mc085/mounted_home/dinov2/dinov2/data/datasets/RVL-CDIP/RVL-CDIP_100_pixelated/train"
-    bbox_json_path = "/home/stud/m/mc085/mounted_home/dinov2/dinov2/data/datasets/RVL-CDIP/list_bboxes_rvl_cdip_train_100_paddle_ocr.json"
-
-    anonymizer = RVLCDIPAnonymizerPixelation()
+    anonymizer = RvlCdipAnonymizerMaskOut()
 
     print("Starting anonymization...")
     anonymizer.anonymize_rvlcdip_imgs(input_path, output_path, bbox_json_path)
-    print(f"Anonymization completed. Anonymized images saved in {output_path}")
-
+    print(f"Anonymization completed. Anonymized images saved in {output_path}") 
     # '/home/stud/m/mc085/mounted_home/dinov2/dinov2/data/datasets/RVL-CDIP/list_bboxes_rvl_cdip_train_100_paddle_ocr.json'
-    # /home/stud/m/mc085/mounted_home/dinov2/dinov2/data/datasets/RVL-CDIP/list_bboxes_rvl_cdip_train_100_paddle_ocr.csv
+    # '/home/stud/m/mc085/mounted_home/dinov2/dinov2/data/datasets/RVL-CDIP/list_bboxes_rvl_cdip_train_100_paddle_ocr.csv'

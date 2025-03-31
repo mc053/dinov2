@@ -3,12 +3,13 @@
 #SBATCH --output eval-retrieval-map-5percent-RVL_CDIP_gt_RvlCdipOriginalVal_emb->RVL_CDIP_gt_RvlCdip100MaskedVal_emb-%j.out
 #SBATCH --partition gpu
 #SBATCH --gpus 1
+#SBATCH --nodelist=tars
 #SBATCH --mail-type=END,FAIL
 #SBATCH --mail-user=mc085@hdm-stuttgart.de
 
 # Print some node information
 echo "$(date)"
-echo "Starting RVL CDIP retrieval MAP evaluation for scenario "Unadapted/Masked" with Unanonymized Query Image" on partition: GPU"
+echo "Starting RVL CDIP retrieval MAP evaluation for scenario "Unadapted/Masked" (100%) with Unanonymized Query Image on partition: GPU"
 echo "Running on: $(hostname)"
 echo "Available CPUs: $(taskset -c -p $$) (logical CPU ids)"
 echo "Available GPUs: $(nvidia-smi)"
@@ -18,8 +19,8 @@ srun --unbuffered enroot start --mount $HOME:$HOME/mounted_home -w mc085 bash -c
     source /home/stud/m/mc085/mounted_home/pia11_clean/bin/activate &&
     cd /home/stud/m/mc085/mounted_home/dinov2 &&
     PYTHONPATH=. python mean_average_precision.py \
-    --gt CelebA_retrieval_ground_truths.pkl \
+    --gt RVL_CDIP \
     --percent 5 \
-    --query CelebA_pixelated_C_CelebAPixelatedVal_emb.json \
-    --database CelebA_pixelated_C_CelebAPixelatedVal_emb.json
+    --query RVL_CDIP_gt_RvlCdipOriginalVal_emb.json \
+    --database RVL_CDIP_gt_RvlCdip100MaskedVal_emb.json
 "

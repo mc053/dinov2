@@ -1,0 +1,6 @@
+train:
+  dataset_path: RvlCdip75BlurredTrain
+  batch_size_per_gpu: 12
+student:
+  block_chunks: 4
+  in_chans: 3

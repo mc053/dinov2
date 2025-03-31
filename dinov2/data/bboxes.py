@@ -212,6 +212,6 @@ if __name__ == "__main__":
     # print(f"BBoxes saved to {output_json_path}")
     # test_calculate_reduction_amount()
 
-    input_json = "/home/stud/m/mc085/mounted_home/dinov2/dinov2/data/datasets/RVL-CDIP/list_bboxes_rvl_cdip_val_50_paddle_ocr.json"
-    output_json = "/home/stud/m/mc085/mounted_home/dinov2/dinov2/data/datasets/RVL-CDIP/list_bboxes_rvl_cdip_val_25_paddle_ocr.json"
+    input_json = "/home/stud/m/mc085/mounted_home/dinov2/dinov2/data/datasets/RVL-CDIP/list_bboxes_rvl_cdip_train_50_paddle_ocr.json"
+    output_json = "/home/stud/m/mc085/mounted_home/dinov2/dinov2/data/datasets/RVL-CDIP/list_bboxes_rvl_cdip_train_25_paddle_ocr.json"
     reduce_rvl_cdip_bboxes(input_json, output_json, ReductionStep.FROM_50_TO_25)

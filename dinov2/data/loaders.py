@@ -10,7 +10,7 @@ from typing import Any, Callable, List, Optional, TypeVar
 import torch
 from torch.utils.data import Sampler
 
-from .datasets import ImageNet, ImageNet22k, CelebAOriginalTrain, CelebAOriginalVal, CelebAPixelatedTrain, CelebAPixelatedVal, CelebAMaskedTrain, CelebAMaskedVal, RvlCdipOriginalTrain, RvlCdipOriginalVal, RvlCdip100MaskedTrain, RvlCdip100MaskedVal, RvlCdip100PixelatedTrain, CelebAPixelatedABTrain, CelebAMaskedABTrain, RvlCdip100PixelatedVal, RvlCdip100PixelatedABTrain, RvlCdip100MaskedABTrain
+from .datasets import ImageNet, ImageNet22k, CelebAOriginalTrain, CelebAOriginalVal, CelebAPixelatedTrain, CelebAPixelatedVal, CelebAMaskedTrain, CelebAMaskedVal, RvlCdipOriginalTrain, RvlCdipOriginalVal, RvlCdip100MaskedTrain, RvlCdip100MaskedVal, RvlCdip100PixelatedTrain, CelebAPixelatedABTrain, CelebAMaskedABTrain, RvlCdip100PixelatedVal, RvlCdip100PixelatedABTrain, RvlCdip100MaskedABTrain, RvlCdip50MaskedTrain, RvlCdip50MaskedVal, RvlCdip50MaskedABTrain, CelebABlurredTrain, CelebABlurredVal, CelebABlurredABTrain, RvlCdip50PixelatedTrain, RvlCdip50PixelatedVal, RvlCdip50PixelatedABTrain, RvlCdip100BlurredTrain, RvlCdip100BlurredABTrain, RvlCdip100BlurredVal, RvlCdip50BlurredTrain, RvlCdip50BlurredABTrain, RvlCdip50BlurredVal, RvlCdip25BlurredTrain, RvlCdip25BlurredABTrain, RvlCdip25PixelatedTrain, RvlCdip25PixelatedABTrain, RvlCdip25MaskedTrain, RvlCdip25MaskedABTrain, RvlCdip25BlurredVal, RvlCdip25PixelatedVal, RvlCdip25MaskedVal, RvlCdip75PixelatedABTrain, RvlCdip75PixelatedTrain, RvlCdip75BlurredABTrain, RvlCdip75BlurredTrain, RvlCdip75MaskedABTrain, RvlCdip75MaskedTrain, RvlCdip75MaskedVal, RvlCdip75PixelatedVal, RvlCdip75BlurredVal
 from .samplers import EpochSampler, InfiniteSampler, ShardedInfiniteSampler
 
 
@@ -90,6 +90,72 @@ def _parse_dataset_str(dataset_str: str):
         class_ = RvlCdip100PixelatedABTrain
     elif name == "RvlCdip100MaskedABTrain":
         class_ = RvlCdip100MaskedABTrain
+    elif name == "RvlCdip50MaskedTrain":
+        class_ = RvlCdip50MaskedTrain
+    elif name == "RvlCdip50MaskedVal":
+        class_ = RvlCdip50MaskedVal
+    elif name == "RvlCdip50MaskedABTrain":
+        class_ = RvlCdip50MaskedABTrain
+    elif name == "CelebABlurredTrain":
+        class_ = CelebABlurredTrain
+    elif name == "CelebABlurredVal":
+        class_ = CelebABlurredVal
+    elif name == "CelebABlurredABTrain":
+        class_ = CelebABlurredABTrain
+    elif name == "RvlCdip50PixelatedTrain":
+        class_ = RvlCdip50PixelatedTrain
+    elif name == "RvlCdip50PixelatedVal":
+        class_ = RvlCdip50PixelatedVal
+    elif name == "RvlCdip50PixelatedABTrain":
+        class_ = RvlCdip50PixelatedABTrain
+    elif name == "RvlCdip100BlurredTrain":
+        class_ = RvlCdip100BlurredTrain
+    elif name == "RvlCdip100BlurredABTrain":
+        class_ = RvlCdip100BlurredABTrain
+    elif name == "RvlCdip100BlurredVal":
+        class_ = RvlCdip100BlurredVal
+    elif name == "RvlCdip50BlurredTrain":
+        class_ = RvlCdip50BlurredTrain
+    elif name == "RvlCdip50BlurredABTrain":
+        class_ = RvlCdip50BlurredABTrain
+    elif name == "RvlCdip50BlurredVal":
+        class_ = RvlCdip50BlurredVal
+    elif name == "RvlCdip25BlurredTrain":
+        class_ = RvlCdip25BlurredTrain
+    elif name == "RvlCdip25BlurredABTrain":
+        class_ = RvlCdip25BlurredABTrain
+    elif name == "RvlCdip25PixelatedABTrain":
+        class_ = RvlCdip25PixelatedABTrain
+    elif name == "RvlCdip25PixelatedTrain":
+        class_ = RvlCdip25PixelatedTrain
+    elif name == "RvlCdip25MaskedTrain":
+        class_ = RvlCdip25MaskedTrain
+    elif name == "RvlCdip25MaskedABTrain":
+        class_ = RvlCdip25MaskedABTrain
+    elif name == "RvlCdip25BlurredVal":
+        class_ = RvlCdip25BlurredVal
+    elif name == "RvlCdip25PixelatedVal":
+        class_ = RvlCdip25PixelatedVal
+    elif name == "RvlCdip25MaskedVal":
+        class_ = RvlCdip25MaskedVal
+    elif name == "RvlCdip75PixelatedABTrain":
+        class_ = RvlCdip75PixelatedABTrain
+    elif name == "RvlCdip75PixelatedTrain":
+        class_ = RvlCdip75PixelatedTrain
+    elif name == "RvlCdip75BlurredABTrain":
+        class_ = RvlCdip75BlurredABTrain
+    elif name == "RvlCdip75BlurredTrain":
+        class_ = RvlCdip75BlurredTrain
+    elif name == "RvlCdip75MaskedABTrain":
+        class_ = RvlCdip75MaskedABTrain
+    elif name == "RvlCdip75MaskedTrain":
+        class_ = RvlCdip75MaskedTrain
+    elif name == "RvlCdip75PixelatedVal":
+        class_ = RvlCdip75PixelatedVal
+    elif name == "RvlCdip75BlurredVal":
+        class_ = RvlCdip75BlurredVal
+    elif name == "RvlCdip75MaskedVal":
+        class_ = RvlCdip75MaskedVal
     else:
         raise ValueError(f'Unsupported dataset "{name}"')
 
